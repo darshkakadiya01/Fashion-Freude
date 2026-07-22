@@ -1,0 +1,163 @@
+.blog-page{
+    background:#fff;
+    padding:60px 15px;
+}
+
+.blog-container{
+    max-width:1100px;
+    margin:auto;
+}
+
+.blog-title{
+    text-align:center;
+    color:#0B5ED7;
+    font-size:48px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.blog-meta{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    color:#777;
+    margin-bottom:35px;
+    font-size:16px;
+}
+
+.blog-banner{
+    width:100%;
+    border-radius:10px;
+    margin-bottom:40px;
+    box-shadow:0 12px 25px rgba(0,0,0,.12);
+}
+
+.blog-content h2{
+    color:#0B5ED7;
+    margin-top:40px;
+    margin-bottom:18px;
+    font-size:32px;
+    font-weight:700;
+}
+
+.blog-content h3{
+    color:#222;
+    font-size:28px;
+    margin-top:30px;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.blog-content p{
+    font-size:18px;
+    color:#555;
+    line-height:2;
+    margin-bottom:18px;
+    text-align:justify;
+}
+
+.blog-content strong{
+    color:#0B5ED7;
+}
+
+.blog-content ul{
+    margin:20px 0 25px 30px;
+}
+
+.blog-content ul li{
+    font-size:18px;
+    color:#555;
+    margin-bottom:12px;
+    line-height:1.9;
+}
+
+.blog-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:30px 0;
+    overflow:hidden;
+    border-radius:8px;
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+
+.blog-table thead{
+    background:#0B5ED7;
+    color:#fff;
+}
+
+.blog-table th{
+    padding:15px;
+    border:1px solid #ddd;
+    text-align:left;
+    font-size:18px;
+}
+
+.blog-table td{
+    padding:15px;
+    border:1px solid #ddd;
+    font-size:17px;
+    color:#555;
+    vertical-align:top;
+}
+
+.blog-table tbody tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+.blog-table tbody tr:hover{
+    background:#eef5ff;
+}
+
+@media(max-width:768px){
+
+.blog-page{
+    padding:40px 12px;
+}
+
+.blog-title{
+    font-size:32px;
+}
+
+.blog-meta{
+    gap:12px;
+    font-size:14px;
+}
+
+.blog-content h2{
+    font-size:24px;
+}
+
+.blog-content h3{
+    font-size:21px;
+}
+
+.blog-content p{
+    font-size:16px;
+}
+
+.blog-content ul{
+    margin-left:20px;
+}
+
+.blog-content ul li{
+    font-size:16px;
+}
+
+.blog-table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+}
+
+.blog-table th{
+    font-size:15px;
+    padding:12px;
+}
+
+.blog-table td{
+    font-size:15px;
+    padding:12px;
+}
+
+}

@@ -1,0 +1,216 @@
+/*=========================================
+TERMS CONTENT SECTION
+=========================================*/
+
+.terms-content-section{
+    padding:90px 0;
+    background:#f8fbff;
+}
+
+.terms-content-card{
+    background:#ffffff;
+    border-radius:20px;
+    padding:55px;
+    box-shadow:0 18px 45px rgba(37,99,235,.08);
+    border:1px solid rgba(37,99,235,.08);
+}
+
+/*=========================================
+EACH SECTION
+=========================================*/
+
+.terms-item{
+    margin-bottom:45px;
+    padding-bottom:35px;
+    border-bottom:1px solid #edf2ff;
+}
+
+.privacy-header h1{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#222;
+
+    margin-bottom:15px;
+    color: #2563eb;
+        margin-top: 60px;
+    margin-bottom: -80px;
+
+}
+
+.terms-item:last-child{
+    margin-bottom:0;
+    padding-bottom:0;
+    border-bottom:none;
+}
+
+.terms-item h3{
+    font-size:30px;
+    font-weight:700;
+    color:#2563eb;
+    margin-bottom:18px;
+    position:relative;
+    padding-left:22px;
+}
+
+.terms-item h3::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:8px;
+    width:7px;
+    height:28px;
+    background:#2563eb;
+    border-radius:30px;
+}
+
+.terms-item p{
+    font-size:17px;
+    color:#555;
+    line-height:1.9;
+    margin-bottom:18px;
+}
+
+/*=========================================
+LIST
+=========================================*/
+
+.terms-item ul{
+    margin:20px 0 0;
+    padding:0;
+}
+
+.terms-item ul li{
+    list-style:none;
+    position:relative;
+    padding-left:35px;
+    margin-bottom:15px;
+    color:#555;
+    line-height:1.8;
+    font-size:16px;
+}
+
+.terms-item ul li::before{
+    content:"✔";
+    position:absolute;
+    left:0;
+    top:2px;
+    width:22px;
+    height:22px;
+    background:#2563eb;
+    color:#fff;
+    font-size:12px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/*=========================================
+HOVER
+=========================================*/
+
+.terms-item{
+    transition:.35s;
+}
+
+.terms-item:hover{
+    transform:translateX(8px);
+}
+
+.terms-item:hover h3{
+    color:#1d4ed8;
+}
+
+/*=========================================
+TABLET
+=========================================*/
+
+@media (max-width:992px){
+
+.terms-content-card{
+    padding:40px;
+}
+
+.terms-item h3{
+    font-size:26px;
+}
+
+.terms-item p{
+    font-size:16px;
+}
+
+}
+
+/*=========================================
+MOBILE
+=========================================*/
+
+@media (max-width:768px){
+
+.terms-content-section{
+    padding:60px 0;
+}
+
+.terms-content-card{
+    padding:25px;
+    border-radius:15px;
+}
+
+.terms-item{
+    margin-bottom:35px;
+    padding-bottom:25px;
+}
+
+.terms-item h3{
+    font-size:22px;
+    padding-left:18px;
+}
+
+.terms-item h3::before{
+    height:22px;
+    top:6px;
+}
+
+.terms-item p{
+    font-size:15px;
+    line-height:1.8;
+}
+
+.terms-item ul li{
+    font-size:15px;
+    padding-left:32px;
+    line-height:1.7;
+}
+
+.terms-item:hover{
+    transform:none;
+}
+
+}
+
+/*=========================================
+SMALL MOBILE
+=========================================*/
+
+@media (max-width:480px){
+
+.terms-content-card{
+    padding:20px;
+}
+
+.terms-item h3{
+    font-size:20px;
+}
+
+.terms-item p{
+    font-size:14px;
+}
+
+.terms-item ul li{
+    font-size:14px;
+}
+
+}

@@ -1,0 +1,488 @@
+/*==================================
+GOOGLE FONT
+==================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    font-family:'Poppins',sans-serif;
+}
+
+/*==================================
+CHECKOUT PAGE
+==================================*/
+
+.checkout-page{
+
+    background:#f8fafc;
+
+    min-height:100vh;
+
+    padding:60px 0;
+
+}
+
+.checkout-card{
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    padding:35px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+    height:100%;
+
+}
+
+.checkout-card h2{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:#111827;
+
+    margin-bottom:10px;
+
+}
+
+.checkout-card p{
+
+    color:#64748b;
+
+    margin-bottom:30px;
+
+}
+
+/*==================================
+FORM
+==================================*/
+
+.checkout-card .form-control,
+.checkout-card .form-select{
+
+    border-radius:12px;
+
+    border:1px solid #dbe4ee;
+
+    padding:14px 16px;
+
+    font-size:16px;
+
+    box-shadow:none;
+
+    transition:.3s;
+
+}
+
+.checkout-card .form-control:focus,
+.checkout-card .form-select:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+
+}
+
+.checkout-card textarea{
+
+    resize:none;
+
+}
+
+/*==================================
+ORDER SUMMARY
+==================================*/
+
+.checkout-product{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:18px 0;
+
+    border-bottom:1px solid #eceff3;
+
+}
+
+.checkout-product:last-child{
+
+    border-bottom:none;
+
+}
+
+.checkout-product-image{
+
+    width:90px;
+
+    height:90px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+    background:#fff;
+
+    border:1px solid #eee;
+
+}
+
+.checkout-product-info{
+
+    flex:1;
+
+}
+
+.checkout-product-info h5{
+
+    margin:0;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#111827;
+
+}
+
+.checkout-product-info p{
+
+    margin:8px 0 4px;
+
+    color:#2563eb;
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+.checkout-product-info small{
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+.checkout-subtotal{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+/*==================================
+SUMMARY
+==================================*/
+
+.summary-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:14px 0;
+
+    font-size:16px;
+
+    color:#374151;
+
+}
+
+.summary-row span{
+
+    font-weight:500;
+
+}
+
+.summary-row strong{
+
+    font-size:18px;
+
+    color:#111827;
+
+}
+
+.total-row{
+
+    margin-top:15px;
+
+    padding-top:20px;
+
+    border-top:2px dashed #dbe4ee;
+
+}
+
+.total-row span{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+.total-row strong{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:#2563eb;
+
+}
+
+/*==================================
+PLACE ORDER BUTTON
+==================================*/
+
+.checkout-card .btn-success{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:16px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    transition:.35s ease;
+
+    box-shadow:0 12px 30px rgba(37,99,235,.25);
+
+}
+
+.checkout-card .btn-success:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 20px 40px rgba(37,99,235,.35);
+
+    background:linear-gradient(
+        135deg,
+        #1d4ed8,
+        #2563eb
+    );
+
+}
+
+/*==================================
+HORIZONTAL LINE
+==================================*/
+
+.checkout-card hr{
+
+    border:none;
+
+    border-top:1px solid #e5e7eb;
+
+    margin:20px 0;
+
+}
+
+/*==================================
+RESPONSIVE
+==================================*/
+
+@media(max-width:992px){
+
+.checkout-page{
+
+    padding:40px 0;
+
+}
+
+.checkout-card{
+
+    padding:28px;
+
+    margin-bottom:25px;
+
+}
+
+.checkout-card h2{
+
+    font-size:28px;
+
+}
+
+.checkout-product{
+
+    gap:15px;
+
+}
+
+.checkout-product-image{
+
+    width:80px;
+
+    height:80px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.checkout-page{
+
+    padding:30px 0;
+
+}
+
+.checkout-card{
+
+    padding:22px;
+
+}
+
+.checkout-card h2{
+
+    font-size:24px;
+
+}
+
+.checkout-product{
+
+    align-items:flex-start;
+
+}
+
+.checkout-product-image{
+
+    width:70px;
+
+    height:70px;
+
+}
+
+.checkout-product-info h5{
+
+    font-size:16px;
+
+}
+
+.checkout-product-info p{
+
+    font-size:16px;
+
+}
+
+.checkout-subtotal{
+
+    font-size:16px;
+
+}
+
+.total-row span{
+
+    font-size:18px;
+
+}
+
+.total-row strong{
+
+    font-size:24px;
+
+}
+
+.checkout-card .btn-success{
+
+    font-size:16px;
+
+    padding:14px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.checkout-page{
+
+    padding:20px 0;
+
+}
+
+.checkout-card{
+
+    padding:18px;
+
+    border-radius:18px;
+
+}
+
+.checkout-product{
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.checkout-product-image{
+
+    width:100px;
+
+    height:100px;
+
+}
+
+.checkout-product-info{
+
+    width:100%;
+
+}
+
+.checkout-subtotal{
+
+    margin-top:10px;
+
+    font-size:18px;
+
+}
+
+.summary-row{
+
+    font-size:15px;
+
+}
+
+.total-row strong{
+
+    font-size:22px;
+
+}
+
+.checkout-card .btn-success{
+
+    padding:13px;
+
+    font-size:15px;
+
+}
+
+}
