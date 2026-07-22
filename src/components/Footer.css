@@ -1,0 +1,463 @@
+/* ===========================
+   FOOTER
+=========================== */
+
+.footer{
+
+    background:#0f172a;
+
+    color:#fff;
+
+    padding:80px 0 20px;
+
+}
+
+/* ===========================
+   LOGO
+=========================== */
+
+.footer-logo{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+    color:#fff;
+
+}
+
+.footer-text{
+
+    color:#cbd5e1;
+
+    line-height:1.9;
+
+    margin-bottom:25px;
+
+}
+
+/* ===========================
+   HEADING
+=========================== */
+
+.footer h4{
+
+    font-size:22px;
+
+    margin-bottom:25px;
+
+    font-weight:600;
+
+}
+
+/* ===========================
+   LINKS
+=========================== */
+
+.footer-links{
+
+    list-style:none;
+
+    padding:0;
+
+}
+
+.footer-links li{
+
+    margin-bottom:12px;
+
+}
+
+.footer-links a{
+
+    color:#cbd5e1;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.footer-links a:hover{
+
+    color:#3b82f6;
+
+    padding-left:8px;
+
+}
+
+/* ===========================
+   CONTACT
+=========================== */
+
+.footer p{
+
+    color:#cbd5e1;
+
+    line-height:1.8;
+
+}
+
+.footer i{
+
+    color:#3b82f6;
+
+}
+
+/* ===========================
+   SOCIAL ICONS
+=========================== */
+
+.social-icons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+.social-icons a{
+
+    width:45px;
+
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#1e293b;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:20px;
+
+    transition:.4s;
+
+}
+
+.social-icons a:hover{
+
+    background:#3b82f6;
+
+    transform:translateY(-6px);
+
+}
+
+/* ===========================
+   NEWSLETTER
+=========================== */
+
+.newsletter{
+
+    display:flex;
+
+    margin-top:25px;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+}
+
+.newsletter input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    padding:15px 20px;
+
+    font-size:15px;
+
+}
+
+.newsletter button{
+
+    background:#2563eb;
+
+    color:#fff;
+
+    border:none;
+
+    padding:15px 25px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.newsletter button:hover{
+
+    background:#1d4ed8;
+
+}
+
+/* ===========================
+   DIVIDER
+=========================== */
+
+.footer-line{
+
+    border-color:#334155;
+
+    margin:50px 0 30px;
+
+}
+
+/* ===========================
+   BOTTOM
+=========================== */
+
+.footer-bottom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:#94a3b8;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+}
+
+.developer{
+
+    color:#3b82f6;
+
+    font-weight:600;
+
+    margin-left:8px;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+.footer{
+
+text-align:center;
+
+}
+
+.social-icons{
+
+justify-content:center;
+
+}
+
+.newsletter{
+
+max-width:500px;
+
+margin:25px auto 0;
+
+}
+
+.footer-bottom{
+
+justify-content:center;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.footer{
+
+padding:60px 0 20px;
+
+}
+
+.footer-logo{
+
+font-size:28px;
+
+}
+
+.footer h4{
+
+margin-top:25px;
+
+}
+
+.newsletter{
+
+flex-direction:column;
+
+border-radius:15px;
+
+}
+
+.newsletter input{
+
+width:100%;
+
+}
+
+.newsletter button{
+
+width:100%;
+
+}
+
+.footer-bottom{
+
+flex-direction:column;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.footer-logo{
+
+font-size:24px;
+
+}
+
+.footer h4{
+
+font-size:20px;
+
+}
+
+.social-icons a{
+
+width:40px;
+
+height:40px;
+
+font-size:18px;
+
+}
+
+.newsletter input{
+
+padding:14px;
+
+}
+
+.newsletter button{
+
+padding:14px;
+
+}
+
+}
+/* ===========================
+   Newsletter Subscribe Box
+=========================== */
+
+.subscribe-box{
+    width:100%;
+    max-width:500px;
+    margin-top:30px;
+}
+
+.subscribe-form{
+    display:flex;
+    align-items:center;
+    width:100%;
+    background:#fff;
+    border-radius:60px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+.subscribe-form input{
+    flex:1;
+    border:none;
+    outline:none;
+    padding:18px 25px;
+    font-size:16px;
+    color:#333;
+    background:#fff;
+}
+
+.subscribe-form input::placeholder{
+    color:#999;
+}
+
+.subscribe-form button{
+    border:none;
+    background:#2563eb;
+    color:#fff;
+    padding:18px 32px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    white-space:nowrap;
+}
+
+.subscribe-form button:hover{
+    background:#1d4ed8;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.subscribe-form{
+    flex-direction:column;
+    border-radius:20px;
+}
+
+.subscribe-form input{
+    width:100%;
+    padding:16px;
+}
+
+.subscribe-form button{
+    width:100%;
+    border-radius:0 0 20px 20px;
+}
+
+}
+
+.footer-links {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #dcdcdc;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: #1D4ED8;
+    transform: translateX(5px);
+}
