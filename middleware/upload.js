@@ -1,5 +1,11 @@
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
+
+// Create uploads folder if not exists
+if (!fs.existsSync("uploads")) {
+    fs.mkdirSync("uploads");
+}
 
 // ==============================
 // Storage
@@ -15,16 +21,13 @@ const storage = multer.diskStorage({
 
     filename: (req, file, cb) => {
 
-        cb(
-
-            null,
-
+        const uniqueName =
             Date.now() +
             "-" +
             Math.round(Math.random() * 1e9) +
-            path.extname(file.originalname)
+            path.extname(file.originalname);
 
-        );
+        cb(null, uniqueName);
 
     }
 
@@ -36,15 +39,21 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
 
-    if (file.mimetype.startsWith("image/")) {
+    const allowedTypes = /jpeg|jpg|png|gif|webp/;
 
-        cb(null, true);
+    const extname = allowedTypes.test(
+        path.extname(file.originalname).toLowerCase()
+    );
 
-    } else {
+    const mimetype = allowedTypes.test(file.mimetype);
 
-        cb(new Error("Only image files are allowed."), false);
+    if (extname && mimetype) {
+
+        return cb(null, true);
 
     }
+
+    cb(new Error("Only JPG, JPEG, PNG, GIF and WEBP images are allowed."));
 
 };
 

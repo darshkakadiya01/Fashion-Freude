@@ -1,157 +1,131 @@
 const Order = require("../models/Order");
 
+// ===============================
 // Create New Order
-const createOrder = async (req, res) => {
+// ===============================
+exports.createOrder = async (req, res) => {
+  try {
+    const order = await Order.create(req.body);
 
-    try {
+    return res.status(201).json({
+      success: true,
+      message: "Order Placed Successfully",
+      order,
+    });
+  } catch (error) {
+    console.log(error);
 
-        const order = new Order(req.body);
-
-        await order.save();
-
-        res.status(201).json({
-            success: true,
-            message: "Order Placed Successfully",
-            order
-        });
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            success: false,
-            message: "Server Error"
-        });
-
-    }
-
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
+// ===============================
 // Get All Orders
-const getOrders = async (req, res) => {
+// ===============================
+exports.getOrders = async (req, res) => {
+  try {
+    const orders = await Order.findAll({
+      order: [["createdAt", "DESC"]],
+    });
 
-    try {
+    return res.status(200).json(orders);
+  } catch (error) {
+    console.log(error);
 
-        const orders = await Order.find().sort({
-            createdAt: -1
-        });
-
-        res.status(200).json(orders);
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            success: false,
-            message: "Server Error"
-        });
-
-    }
-
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
+// ===============================
 // Get Single Order
-const getOrderById = async (req, res) => {
+// ===============================
+exports.getOrderById = async (req, res) => {
+  try {
+    const order = await Order.findByPk(req.params.id);
 
-    try {
-
-        const order = await Order.findById(req.params.id);
-
-        if (!order) {
-
-            return res.status(404).json({
-                success: false,
-                message: "Order Not Found"
-            });
-
-        }
-
-        res.status(200).json(order);
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            success: false,
-            message: "Server Error"
-        });
-
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order Not Found",
+      });
     }
 
+    return res.status(200).json(order);
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
+// ===============================
 // Update Order Status
-const updateOrderStatus = async (req, res) => {
+// ===============================
+exports.updateOrderStatus = async (req, res) => {
+  try {
+    const order = await Order.findByPk(req.params.id);
 
-    try {
-
-        const order = await Order.findByIdAndUpdate(
-
-            req.params.id,
-
-            {
-                status: req.body.status
-            },
-
-            {
-                new: true
-            }
-
-        );
-
-        res.status(200).json({
-            success: true,
-            message: "Order Updated Successfully",
-            order
-        });
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            success: false,
-            message: "Server Error"
-        });
-
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order Not Found",
+      });
     }
 
+    await order.update({
+      status: req.body.status,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Order Updated Successfully",
+      order,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
+// ===============================
 // Delete Order
-const deleteOrder = async (req, res) => {
+// ===============================
+exports.deleteOrder = async (req, res) => {
+  try {
+    const order = await Order.findByPk(req.params.id);
 
-    try {
-
-        await Order.findByIdAndDelete(req.params.id);
-
-        res.status(200).json({
-            success: true,
-            message: "Order Deleted Successfully"
-        });
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).json({
-            success: false,
-            message: "Server Error"
-        });
-
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order Not Found",
+      });
     }
 
-};
+    await order.destroy();
 
-module.exports = {
+    return res.status(200).json({
+      success: true,
+      message: "Order Deleted Successfully",
+    });
+  } catch (error) {
+    console.log(error);
 
-    createOrder,
-    getOrders,
-    getOrderById,
-    updateOrderStatus,
-    deleteOrder
-
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };

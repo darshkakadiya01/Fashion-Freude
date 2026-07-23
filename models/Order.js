@@ -1,39 +1,59 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("../config/db");
 
-const orderSchema = new mongoose.Schema(
+const Order = sequelize.define(
+  "Order",
   {
     customerName: {
-      type: String,
-      required: true,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
+
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
     phone: {
-      type: String,
-      required: true,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
+
     address: {
-      type: String,
-      required: true,
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
-    paymentMethod: {
-      type: String,
-      required: true,
+
+    city: {
+      type: DataTypes.STRING,
     },
-    items: [
-      {
-        productId: String,
-        name: String,
-        price: Number,
-        quantity: Number,
-        image: String,
-      },
-    ],
+
+    state: {
+      type: DataTypes.STRING,
+    },
+
+    pincode: {
+      type: DataTypes.STRING,
+    },
+
     totalAmount: {
-      type: Number,
-      required: true,
+      type: DataTypes.FLOAT,
+      allowNull: false,
     },
+
+    paymentMethod: {
+      type: DataTypes.STRING,
+      defaultValue: "COD",
+    },
+
     status: {
-      type: String,
-      default: "Pending",
+      type: DataTypes.STRING,
+      defaultValue: "Pending",
+    },
+
+    products: {
+      type: DataTypes.JSON,
+      defaultValue: [],
     },
   },
   {
@@ -41,4 +61,4 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Order", orderSchema);
+module.exports = Order;

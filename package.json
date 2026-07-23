@@ -17,9 +17,10 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.0",
     "multer": "^2.2.0",
+    "mysql2": "^3.23.1",
     "react-router-dom": "^7.18.1",
+    "sequelize": "^6.37.8",
     "slugify": "^1.6.9"
   },
   "devDependencies": {
