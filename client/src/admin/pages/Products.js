@@ -2,17 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import AdminLayout from "../AdminLayout";
-import { useNavigate } from "react-router-dom";
 
 function Products() {
-  const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
   const [products, setProducts] = useState([]);
-
-  const navigate = useNavigate();
 
   const getProducts = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/products`);
+      const res = await axios.get("http://localhost:5000/api/products");
       setProducts(res.data);
     } catch (error) {
       console.log(error);
@@ -23,14 +19,6 @@ function Products() {
     getProducts();
   }, []);
 
-  const handleEdit = (id) => {
-
-    console.log("Edit ID:", id);
-
-    navigate(`/admin/edit-product/${id}`);
-
-};  
-
 const deleteProduct = async (id) => {
 
     if (!window.confirm("Are you sure you want to delete this product?")) {
@@ -40,7 +28,7 @@ const deleteProduct = async (id) => {
     try {
 
         const res = await axios.delete(
-            `${API_BASE_URL}/api/products/delete/${id}`
+            `http://localhost:5000/api/products/delete/${id}`
         );
 
         alert(res.data.message);
@@ -103,7 +91,7 @@ const deleteProduct = async (id) => {
 
                 <td>
                   <Link
-                    to={`/admin/products/edit/${product.id}`}
+                    to={`/admin/products/edit/${product._id}`}
                     className="btn btn-warning btn-sm me-2"
                   >
                     Edit
@@ -111,7 +99,7 @@ const deleteProduct = async (id) => {
 
                   <button
                       className="btn btn-danger btn-sm"
-                      onClick={() => deleteProduct(product.id)}
+                      onClick={() => deleteProduct(product._id)}
                   >
                       Delete
                   </button>

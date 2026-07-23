@@ -4,7 +4,6 @@ import AdminLayout from "../AdminLayout";
 
 function Orders() {
 
-    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const [orders, setOrders] = useState([]);
 
     const getOrders = async () => {
@@ -12,7 +11,7 @@ function Orders() {
         try {
 
             const res = await axios.get(
-                `${API_BASE_URL}/api/orders`
+                "http://localhost:5000/api/orders"
             );
 
             setOrders(res.data);

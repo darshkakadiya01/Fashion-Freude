@@ -5,14 +5,14 @@ import AdminLayout from "../AdminLayout";
 function Categories() {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
-  const API_BASE_URL =
-    process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000";
 
   // ================= GET CATEGORIES =================
 
   const getCategories = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/categories`);
+      const res = await axios.get(
+        "http://localhost:5000/api/categories"
+      );
 
       setCategories(res.data);
     } catch (error) {
@@ -41,9 +41,12 @@ function Categories() {
 
     try {
 
-      const res = await axios.post(`${API_BASE_URL}/api/categories/add`, {
-        name: name.trim(),
-      });
+      const res = await axios.post(
+        "http://localhost:5000/api/categories/add",
+        {
+          name: name.trim(),
+        }
+      );
 
       alert(res.data.message);
 
@@ -81,7 +84,7 @@ function Categories() {
     try {
 
       const res = await axios.delete(
-        `${API_BASE_URL}/api/categories/delete/${id}`
+        `http://localhost:5000/api/categories/delete/${id}`
       );
 
       alert(res.data.message);

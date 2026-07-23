@@ -5,7 +5,6 @@ import "./Checkout.css";
 
 function Checkout() {
 
-    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const { cart, clearCart } = useCart();
 
     const [form, setForm] = useState({
@@ -81,7 +80,7 @@ function Checkout() {
 
             const res = await axios.post(
 
-                `${API_BASE_URL}/api/orders`,
+                "http://localhost:5000/api/orders",
 
                 orderData
 

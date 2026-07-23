@@ -1,8 +1,141 @@
 import "./About.css";
+import { HelmetProvider } from "react-helmet-async";
+
 
 function About() {
 
     return (
+
+        <>
+        <Helmet>
+
+    <title>
+        About Fashion Freude | Online Fashion Store
+    </title>
+
+
+    <meta
+        name="description"
+        content="Learn about Fashion Freude, our mission, working process, values, and commitment to providing quality fashion products with a seamless online shopping experience."
+    />
+
+
+    <meta
+        name="keywords"
+        content="Fashion Freude, online fashion store, clothing store, fashion shopping, premium fashion products, affordable fashion"
+    />
+
+
+    <meta
+        name="author"
+        content="Fashion Freude"
+    />
+
+
+    <meta
+        name="robots"
+        content="index, follow"
+    />
+
+
+    <link
+        rel="canonical"
+        href="https:/fashionfreude.com/about"
+    />
+
+
+    {/* Open Graph */}
+
+    <meta
+        property="og:title"
+        content="About Fashion Freude | Online Fashion Store"
+    />
+
+
+    <meta
+        property="og:description"
+        content="Discover Fashion Freude's story, values, and commitment to delivering quality fashion products online."
+    />
+
+
+    <meta
+        property="og:type"
+        content="website"
+    />
+
+
+    <meta
+        property="og:url"
+        content="https://yourdomain.com/about"
+    />
+
+
+    <meta
+        property="og:image"
+        content="https://yourdomain.com/images/about-fashion.jpg"
+    />
+
+
+    {/* Twitter SEO */}
+
+    <meta
+        name="twitter:card"
+        content="summary_large_image"
+    />
+
+
+    <meta
+        name="twitter:title"
+        content="About Fashion Freude | Online Fashion Store"
+    />
+
+
+    <meta
+        name="twitter:description"
+        content="Know more about Fashion Freude, our products, process, and customer-first approach."
+    />
+
+
+    <meta
+        name="twitter:image"
+        content="https://yourdomain.com/images/about-fashion.jpg"
+    />
+
+
+    {/* Schema Markup */}
+
+    <script type="application/ld+json">
+
+        {JSON.stringify({
+
+            "@context": "https://schema.org",
+
+            "@type": "Organization",
+
+            "name": "Fashion Freude",
+
+            "url": "https://yourdomain.com",
+
+            "logo": "https://yourdomain.com/logo.png",
+
+            "description":
+            "Fashion Freude is an online fashion store offering quality products with a smooth shopping experience.",
+
+            "sameAs": [
+
+                "https://www.instagram.com/yourpage",
+
+                "https://www.facebook.com/yourpage"
+
+            ]
+
+        })}
+
+    </script>
+
+
+</Helmet>
+        
 
         <section className="about-page">
 
@@ -464,6 +597,8 @@ function About() {
             </section>
 
         </section>
+
+        </>
 
     );
 

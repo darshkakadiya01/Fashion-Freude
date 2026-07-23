@@ -3,7 +3,6 @@ import axios from "axios";
 
 function ProductList() {
 
-    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const [products, setProducts] = useState([]);
 
     const getProducts = async () => {
@@ -11,7 +10,7 @@ function ProductList() {
         try {
 
             const res = await axios.get(
-                `${API_BASE_URL}/api/products`
+                "http://localhost:5000/api/products"
             );
 
             setProducts(res.data);
@@ -40,7 +39,7 @@ function ProductList() {
     try {
 
         const res = await axios.delete(
-            `${API_BASE_URL}/api/products/delete/${id}`
+            `http://localhost:5000/api/products/delete/${id}`
         );
 
         alert(res.data.message);
@@ -65,7 +64,7 @@ const editProduct = async (product) => {
 
         const res = await axios.put(
 
-            `${API_BASE_URL}/api/products/update/${product._id}`,
+            `http://localhost:5000/api/products/update/${product._id}`,
 
             {
 

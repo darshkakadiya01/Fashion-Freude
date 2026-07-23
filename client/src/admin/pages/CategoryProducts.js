@@ -5,7 +5,6 @@ import ProductCard from "../../components/ProductCard";
 
 function CategoryProducts() {
 
-    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const { categoryName } = useParams();
 
     const [products, setProducts] = useState([]);
@@ -29,7 +28,7 @@ function CategoryProducts() {
         try {
 
             const res = await axios.get(
-                `${API_BASE_URL}/api/products/category/${encodeURIComponent(originalCategory)}`
+                `http://localhost:5000/api/products/category/${encodeURIComponent(originalCategory)}`
             );
 
             console.log("URL Slug:", categoryName);
@@ -85,7 +84,7 @@ function CategoryProducts() {
                                 products.map((product) => (
 
                                     <ProductCard
-                                        key={product._id}
+                                        key={product.id}
                                         product={product}
                                     />
 
