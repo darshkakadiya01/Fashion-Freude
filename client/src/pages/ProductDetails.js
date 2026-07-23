@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../context/CartContext";
 import "./ProductDetails.css";
 
 function ProductDetails() {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const { slug } = useParams();
 
     const navigate = useNavigate();
@@ -21,62 +21,93 @@ function ProductDetails() {
 
     const [selectedImage, setSelectedImage] = useState("");
 
-    useEffect(() => {
-    if (product) {
-        setSelectedImage(product.image);
-    }
-}, [product]);
+    // Backend Upload Folder
+    const IMAGE_URL = `${API_BASE_URL}/uploads/`;
 
+    // Convert image path to full URL
+    const getImage = (img) => {
 
-useEffect(() => {
-
-const getProduct = async () => {
-
-    try {
-
-        const res = await axios.get(
-            `http://localhost:5000/api/products/${slug}`
-        );
-
-        setProduct(res.data);
-
-        if (res.data.image) {
-
-            setSelectedImage(res.data.image);
-
+        if (!img) {
+            return "/no-image.png";
         }
 
-        setLoading(false);
+        // Already full URL
+        if (img.startsWith("http")) {
+            return img;
+        }
 
-    } catch (error) {
+        // Remove uploads/ if exists
+        img = img.replace(/^uploads[\\/]/, "");
 
-        console.log(error);
-
-        setLoading(false);
-
-    }
-
-};
-
-    getProduct();
-
-}, [slug]);
-
-    const increaseQty = () => {
-
-        setQuantity(quantity + 1);
+        return IMAGE_URL + img;
 
     };
 
+    // Load Product
+    useEffect(() => {
+
+        const getProduct = async () => {
+
+            try {
+
+                const res = await axios.get(
+                    `${API_BASE_URL}/api/products/${slug}`
+                );
+
+                setProduct(res.data);
+
+                if (res.data.image) {
+
+                    setSelectedImage(res.data.image);
+
+                }
+
+                setLoading(false);
+
+            } catch (error) {
+
+                console.log(error);
+
+                setLoading(false);
+
+            }
+
+        };
+
+        getProduct();
+
+    }, [slug]);
+
+    // Update Selected Image
+    useEffect(() => {
+
+        if (product) {
+
+            setSelectedImage(product.image);
+
+        }
+
+    }, [product]);
+
+    // Quantity +
+    const increaseQty = () => {
+
+        setQuantity(prev => prev + 1);
+
+    };
+
+    // Quantity -
     const decreaseQty = () => {
 
         if (quantity > 1) {
 
-            setQuantity(quantity - 1);
+            setQuantity(prev => prev - 1);
 
         }
 
     };
+
+    // Add To Cart
     const handleAddToCart = () => {
 
         for (let i = 0; i < quantity; i++) {
@@ -124,54 +155,68 @@ const getProduct = async () => {
 
     }
 
+    // Price
     const oldPrice = Math.round(product.price * 1.25);
 
     const discount = Math.round(
         ((oldPrice - product.price) / oldPrice) * 100
     );
 
-    const allImages = product
-    ? [
-          product.image,
-          ...(product.gallery || [])
-      ].filter(Boolean)
-    : [];
+    // Images
+const galleryImages =
+    typeof product?.gallery === "string"
+        ? JSON.parse(product.gallery)
+        : product?.gallery || [];
 
-const showPrevImage = () => {
+const allImages = [
+    product?.image,
+    ...galleryImages
+].filter(Boolean);
 
-    if (allImages.length === 0) return;
+    // Previous Image
+    const showPrevImage = () => {
 
-    const index = allImages.indexOf(selectedImage);
+        if (allImages.length === 0) return;
 
-    if (index <= 0) {
+        const index = allImages.indexOf(selectedImage);
 
-        setSelectedImage(allImages[allImages.length - 1]);
+        if (index <= 0) {
 
-    } else {
+            setSelectedImage(
+                allImages[allImages.length - 1]
+            );
 
-        setSelectedImage(allImages[index - 1]);
+        } else {
 
-    }
+            setSelectedImage(
+                allImages[index - 1]
+            );
 
-};
+        }
 
-const showNextImage = () => {
+    };
 
-    if (allImages.length === 0) return;
+    // Next Image
+    const showNextImage = () => {
 
-    const index = allImages.indexOf(selectedImage);
+        if (allImages.length === 0) return;
 
-    if (index === allImages.length - 1) {
+        const index = allImages.indexOf(selectedImage);
 
-        setSelectedImage(allImages[0]);
+        if (index === allImages.length - 1) {
 
-    } else {
+            setSelectedImage(allImages[0]);
 
-        setSelectedImage(allImages[index + 1]);
+        } else {
 
-    }
+            setSelectedImage(
+                allImages[index + 1]
+            );
 
-};
+        }
+
+    };
+
     return (
 
         <section className="product-details-page">
@@ -179,8 +224,7 @@ const showNextImage = () => {
             <div className="container">
 
                 <div className="product-details-card">
-
-                    {/* LEFT SIDE */}
+                                        {/* LEFT SIDE */}
 
                     <div className="product-image-section">
 
@@ -189,52 +233,59 @@ const showNextImage = () => {
                             {discount}% OFF
 
                         </div>
+
                         <div className="product-images">
 
-    <div className="main-image-box">
+                            <div className="main-image-box">
 
-        <img
-            src={selectedImage || product.image}
-            alt={product.name}
-        />
+                                <img
+                                    src={getImage(selectedImage || product.image)}
+                                    alt={product.name}
+                                    onError={(e) => {
+                                        e.target.src = "/no-image.png";
+                                    }}
+                                />
 
-    </div>
+                            </div>
 
-    <div className="thumbnail-row">
+                            <div className="thumbnail-row">
 
-        <button
-            className="image-arrow"
-            onClick={showPrevImage}
-        >
-            ❮
-        </button>
+                                <button
+                                    className="image-arrow"
+                                    onClick={showPrevImage}
+                                >
+                                    ❮
+                                </button>
 
-        {allImages.map((img, index) => (
+                                {allImages.map((img, index) => (
 
-            <img
-                key={index}
-                src={img}
-                alt=""
-                className={
-                    selectedImage === img
-                        ? "thumbnail active"
-                        : "thumbnail"
-                }
-                onClick={() => setSelectedImage(img)}
-            />
+                                    <img
+                                        key={index}
+                                        src={getImage(img)}
+                                        alt=""
+                                        className={
+                                            selectedImage === img
+                                                ? "thumbnail active"
+                                                : "thumbnail"
+                                        }
+                                        onClick={() => setSelectedImage(img)}
+                                        onError={(e) => {
+                                            e.target.src = "/no-image.png";
+                                        }}
+                                    />
 
-        ))}
+                                ))}
 
-        <button
-            className="image-arrow"
-            onClick={showNextImage}
-        >
-            ❯
-        </button>
+                                <button
+                                    className="image-arrow"
+                                    onClick={showNextImage}
+                                >
+                                    ❯
+                                </button>
 
-    </div>
+                            </div>
 
-</div>
+                        </div>
 
                     </div>
 
@@ -303,11 +354,16 @@ const showNextImage = () => {
                             ↩️ Easy Return
 
                         </div>
-                                                {/* Quantity */}
+
+                        {/* Quantity */}
 
                         <div className="quantity-wrapper">
 
-                            <h5>Quantity</h5>
+                            <h5>
+
+                                Quantity
+
+                            </h5>
 
                             <div className="quantity-box">
 
@@ -327,7 +383,6 @@ const showNextImage = () => {
                                     onClick={increaseQty}
                                 >
                                     +
-
                                 </button>
 
                             </div>
@@ -362,8 +417,7 @@ const showNextImage = () => {
                     </div>
 
                 </div>
-
-                {/* Description */}
+                                {/* Description */}
 
                 <div className="product-extra-card">
 
@@ -397,75 +451,39 @@ const showNextImage = () => {
 
                             <tr>
 
-                                <td>
+                                <td>Product Name</td>
 
-                                    Product Name
-
-                                </td>
-
-                                <td>
-
-                                    {product.name}
-
-                                </td>
+                                <td>{product.name}</td>
 
                             </tr>
 
                             <tr>
 
-                                <td>
+                                <td>Category</td>
 
-                                    Category
-
-                                </td>
-
-                                <td>
-
-                                    {product.category}
-
-                                </td>
+                                <td>{product.category}</td>
 
                             </tr>
 
                             <tr>
 
-                                <td>
+                                <td>Price</td>
 
-                                    Price
-
-                                </td>
-
-                                <td>
-
-                                    ₹ {product.price}
-
-                                </td>
+                                <td>₹ {product.price}</td>
 
                             </tr>
 
                             <tr>
 
-                                <td>
+                                <td>Stock</td>
 
-                                    Stock
-
-                                </td>
-
-                                <td>
-
-                                    {product.stock}
-
-                                </td>
+                                <td>{product.stock}</td>
 
                             </tr>
 
                             <tr>
 
-                                <td>
-
-                                    Availability
-
-                                </td>
+                                <td>Availability</td>
 
                                 <td>
 
@@ -479,11 +497,7 @@ const showNextImage = () => {
 
                             <tr>
 
-                                <td>
-
-                                    Delivery
-
-                                </td>
+                                <td>Delivery</td>
 
                                 <td>
 
@@ -495,11 +509,7 @@ const showNextImage = () => {
 
                             <tr>
 
-                                <td>
-
-                                    Payment
-
-                                </td>
+                                <td>Payment</td>
 
                                 <td>
 
@@ -557,7 +567,7 @@ const showNextImage = () => {
 
                             <p>
 
-                                100% secure payment gateway.
+                                100% Secure Payment Gateway.
 
                             </p>
 
@@ -575,7 +585,7 @@ const showNextImage = () => {
 
                             <p>
 
-                                7 Days return policy.
+                                7 Days Easy Return Policy.
 
                             </p>
 
@@ -593,7 +603,7 @@ const showNextImage = () => {
 
                             <p>
 
-                                Genuine products with warranty.
+                                Genuine Premium Products.
 
                             </p>
 

@@ -6,6 +6,7 @@ import "./Navbar.css";
 
 function Navbar() {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const { cart } = useCart();
     const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ function Navbar() {
     const [search, setSearch] = useState("");
 
     const totalItems = cart.reduce(
-        (total, item) => total + item.quantity,
+        (total, item) => total + (item.quantity || 1),
         0
     );
 
@@ -22,7 +23,7 @@ function Navbar() {
     // CREATE CATEGORY SLUG
     // ==========================
 
-    const createSlug = (text) => {
+    const createSlug = (text = "") => {
         return text
             .toLowerCase()
             .trim()
@@ -65,10 +66,31 @@ function Navbar() {
             try {
 
                 const res = await axios.get(
-                    "http://localhost:5000/api/categories"
+                    `${API_BASE_URL}/api/categories`
                 );
 
-                setCategories(res.data);
+                console.log("Categories:", res.data);
+
+                // Remove duplicate categories
+                const uniqueCategories = [];
+
+                const names = new Set();
+
+                res.data.forEach((cat) => {
+
+                    const name = cat.name.trim().toLowerCase();
+
+                    if (!names.has(name)) {
+
+                        names.add(name);
+
+                        uniqueCategories.push(cat);
+
+                    }
+
+                });
+
+                setCategories(uniqueCategories);
 
             } catch (error) {
 
@@ -163,11 +185,12 @@ function Navbar() {
                             <ul className="dropdown-menu-custom">
 
                                 {
+
                                     categories.length > 0 ?
 
                                         categories.map((category) => (
 
-                                            <li key={category._id}>
+                                            <li key={category.id}>
 
                                                 <Link
                                                     to={`/category/${createSlug(category.name)}`}
@@ -185,7 +208,9 @@ function Navbar() {
                                         <li>
 
                                             <span className="no-category">
+
                                                 No Categories
+
                                             </span>
 
                                         </li>
@@ -195,8 +220,6 @@ function Navbar() {
                             </ul>
 
                         </li>
-
-                        {/* Blogs */}
 
                         <li>
 
@@ -209,8 +232,6 @@ function Navbar() {
 
                         </li>
 
-                        {/* Cart */}
-
                         <li>
 
                             <Link
@@ -222,7 +243,9 @@ function Navbar() {
                                 🛒 Cart
 
                                 <span className="cart-count">
+
                                     {totalItems}
+
                                 </span>
 
                             </Link>
@@ -241,4 +264,4 @@ function Navbar() {
 
 }
 
-export default Navbar;
+export default Navbar;  

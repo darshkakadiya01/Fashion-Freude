@@ -84,7 +84,7 @@ function CategoryProducts() {
                                 products.map((product) => (
 
                                     <ProductCard
-                                        key={product._id}
+                                        key={product.id}
                                         product={product}
                                     />
 

@@ -3,12 +3,19 @@ import "./ProductCard.css";
 
 function ProductCard({ product }) {
 
-    // Show only first 4 words of product name
-    const shortTitle = product.name
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
+
+    // Show only first 4 words
+    const shortTitle = product?.name
         ? product.name.split(" ").slice(0, 4).join(" ")
         : "";
 
-    console.log(product);
+    // Build Image URL
+    const imageUrl = product?.image
+        ? product.image.startsWith("http")
+            ? product.image
+            : `${API_BASE_URL}/uploads/${product.image.replace(/^uploads[\\/]/, "")}`
+        : "/no-image.png";
 
     return (
 
@@ -21,9 +28,12 @@ function ProductCard({ product }) {
                 </span>
 
                 <img
-                    src={product.image}
-                    alt={product.name}
+                    src={imageUrl}
+                    alt={product?.name}
                     className="shop-image"
+                    onError={(e) => {
+                        e.target.src = "/no-image.png";
+                    }}
                 />
 
             </div>
@@ -36,8 +46,8 @@ function ProductCard({ product }) {
 
                 <h3 className="shop-title">
                     {shortTitle}
-                    {product.name &&
-                    product.name.split(" ").length > 4
+                    {product?.name &&
+                        product.name.split(" ").length > 4
                         ? "..."
                         : ""}
                 </h3>

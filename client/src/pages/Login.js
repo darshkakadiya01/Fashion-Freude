@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Login.css";
 
 function Login() {
+  const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +35,7 @@ function Login() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${API_BASE_URL}/api/auth/login`,
         user
       );
 

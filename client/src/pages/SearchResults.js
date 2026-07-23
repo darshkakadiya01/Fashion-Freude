@@ -5,6 +5,7 @@ import ProductCard from "../components/ProductCard";
 
 function SearchResults() {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const { keyword } = useParams();
 
     const [products, setProducts] = useState([]);
@@ -21,7 +22,7 @@ function SearchResults() {
         try {
 
             const res = await axios.get(
-                `http://localhost:5000/api/products/search?keyword=${encodeURIComponent(keyword)}`
+                `${API_BASE_URL}/api/products/search?keyword=${encodeURIComponent(keyword)}`
             );
 
             console.log("Search:", keyword);

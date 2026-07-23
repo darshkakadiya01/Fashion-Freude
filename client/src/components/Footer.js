@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Footer() {
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const [categories, setCategories] = useState([]);
 
 useEffect(() => {
@@ -14,7 +15,7 @@ const getCategories = async () => {
     try {
 
         const res = await axios.get(
-            "http://localhost:5000/api/categories"
+            `${API_BASE_URL}/api/categories`
         );
 
         setCategories(res.data);

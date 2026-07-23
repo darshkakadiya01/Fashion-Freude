@@ -1,29 +1,18 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("../config/db");
 
-const categorySchema = new mongoose.Schema(
+const Category = sequelize.define(
+  "Category",
   {
     name: {
-      type: String,
-      required: true,
+      type: DataTypes.STRING,
+      allowNull: false,
       unique: true,
-      trim: true,
     },
 
     image: {
-      type: String,
-      required: true,
-      default:
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
-    },
-
-    description: {
-      type: String,
-      default: "",
-    },
-
-    status: {
-      type: Boolean,
-      default: true,
+      type: DataTypes.STRING,
+      defaultValue: "",
     },
   },
   {
@@ -31,4 +20,4 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Category", categorySchema);
+module.exports = Category;

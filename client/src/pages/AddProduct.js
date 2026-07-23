@@ -3,6 +3,7 @@ import axios from "axios";
 
 function AddProduct() {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const [product, setProduct] = useState({
         name: "",
         description: "",
@@ -30,7 +31,7 @@ function AddProduct() {
         try {
 
             const res = await axios.get(
-                "http://localhost:5000/api/categories"
+                `${API_BASE_URL}/api/categories`
             );
 
             setCategories(res.data);
@@ -77,7 +78,7 @@ function AddProduct() {
             }
 
             const res = await axios.post(
-                "http://localhost:5000/api/products/add",
+                `${API_BASE_URL}/api/products/add`,
                 formData,
                 {
                     headers: {

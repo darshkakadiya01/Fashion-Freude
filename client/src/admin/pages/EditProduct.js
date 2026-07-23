@@ -5,6 +5,7 @@ import AdminLayout from "../AdminLayout";
 
 function EditProduct() {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const { id } = useParams();
 
     const navigate = useNavigate();
@@ -45,7 +46,7 @@ function EditProduct() {
 
             const res = await axios.get(
 
-                `http://localhost:5000/api/products/${id}`
+                `${API_BASE_URL}/api/products/${id}`
 
             );
 
@@ -77,7 +78,7 @@ function EditProduct() {
 
             const res = await axios.get(
 
-                "http://localhost:5000/api/categories"
+                `${API_BASE_URL}/api/categories`
 
             );
 
@@ -190,7 +191,7 @@ const updateProduct = async (e) => {
 
         const res = await axios.put(
 
-            `http://localhost:5000/api/products/update/${id}`,
+            `${API_BASE_URL}/api/products/update/${id}`,
 
             formData,
 
