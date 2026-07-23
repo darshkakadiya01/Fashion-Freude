@@ -129,181 +129,25 @@ const latestBlogs = [...blogs]
   return (
 
     <>
-
-      {/* ================= HERO SECTION ================= */}
-
-      {/* <section className="hero">
-
-        <div className="container">
-
-          <div className="hero-wrapper">
-
-            <div className="hero-left">
-
-              <span className="hero-tag">
-                🔥 #1 Online Shopping Store
-              </span>
-
-              <h1>
-                Discover Amazing Products
-                <br />
-                At Best Prices
-              </h1>
-
-              <p>
-                Fashion Freude brings thousands of premium products
-                with secure payment, fast delivery and exciting
-                offers every day.
-              </p>
-
-              <div className="hero-buttons">
-
-                <a href="#products" className="btn-shop">
-                  Shop Now
-                </a>
-
-                <a href="#categories" className="btn-outline">
-                  Explore
-                </a>
-
-              </div>
-
-            </div>
-
-            <div className="hero-right">
-
-              <img
-                src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900"
-                alt="Shopping"
-              />
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section> */}
-
-      {/* ================= FEATURES ================= */}
-
-      
-      {/* ================= CATEGORIES ================= */}
-
-      {/* <section
-        className="categories"
-        id="categories"
-      >
-
-        <div className="container">
-
-          <div className="section-title">
-
-            <h2>Shop By Categories</h2>
-
-            <p>
-              Find products from your favourite category
-            </p>
-
-          </div>
-
-          <div className="category-grid">
-
-            <div className="category-item">
-
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1041/1041886.png"
-                alt=""
-              />
-
-              <h5>Electronics</h5>
-
-            </div>
-
-            <div className="category-item">
-
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png"
-                alt=""
-              />
-
-              <h5>Fashion</h5>
-
-            </div>
-
-            <div className="category-item">
-
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png"
-                alt=""
-              />
-
-              <h5>Groceries</h5>
-
-            </div>
-
-            <div className="category-item">
-
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/2933/2933827.png"
-                alt=""
-              />
-
-              <h5>Furniture</h5>
-
-            </div>
-
-            <div className="category-item">
-
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png"
-                alt=""
-              />
-
-              <h5>Beauty</h5>
-
-            </div>
-
-            <div className="category-item">
-
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3082/3082037.png"
-                alt=""
-              />
-
-              <h5>Sports</h5>
-
-            </div>
-
-            <div className="category-item">
-
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/863/863684.png"
-                alt=""
-              />
-
-              <h5>Toys</h5>
-
-            </div>
-
-            <div className="category-item">
-
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
-                alt=""
-              />
-
-              <h5>Books</h5>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section> */}
-
-      {/* ================= FEATURED PRODUCTS ================= */}
+      <title>Fashion Freude | Shop Ethnic Wear, Sarees, Kurtis & Lehenga Cholis Online</title>
+      <meta name="title" content="Fashion Freude | Shop Ethnic Wear, Sarees, Kurtis & Lehenga Cholis Online" />
+      <meta name="description" content="Explore Fashion Freude for the best online deals on Kurti, Saree, Lehenga Choli, and Salwar Suit collections. Enjoy free shipping over ₹999 and fast delivery across India." />
+      <meta name="keywords" content="Fashion Freude, Kurti online, Flash Sale, online shoping Offer, Buy Saree online, Free Shipping, Easy Returns, Premium Quality kurti, Premium Products, Lehenga Choli shopping, Salwar Suit, ethnic wear for women, flash sale fashion, women clothing deals India" />
+      <meta name="robots" content="index, follow" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="canonical" href="https://fashionfreude.com" />
+
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://fashionfreude.com" />
+      <meta property="og:title" content="Fashion Freude | Premium Women's Ethnic Wear & Fashion Online" />
+      <meta property="og:description" content="Shop thousands of hand-picked ethnic outfits including Kurtis, Sarees, and Lehengas. Save up to 50% OFF in our Flash Sale with 7-day easy returns." />
+      <meta property="og:image" content="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900" />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content="https://fashionfreude.com" />
+      <meta name="twitter:title" content="Fashion Freude | Shop Ethnic Wear, Sarees & Kurtis" />
+      <meta name="twitter:description" content="Discover trending Indian ethnic wear at Fashion Freude. Best prices on Kurtis, Sarees, Lehenga Cholis, and Salwar Suits." />
+      <meta name="twitter:image" content="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900" />
 
       <section
         className="products-section"
@@ -315,10 +159,6 @@ const latestBlogs = [...blogs]
           <div className="section-title">
 
             <h2>Featured Products</h2>
-
-            <p>
-              Hand-picked products just for you
-            </p>
 
           </div>
 

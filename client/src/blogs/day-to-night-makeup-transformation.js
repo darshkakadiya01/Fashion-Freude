@@ -6,6 +6,27 @@ import BlogImage from "./images/blog03_v03.webp";
 export default function DayToNightMakeupTransformation() {
 
     return (
+        <>
+            <title>Day to Night Makeup Transformation: Quick Tips for Working Women | Fashion Freude</title>
+            <meta name="title" content="Day to Night Makeup Transformation: Quick Tips for Working Women | Fashion Freude" />
+            <meta name="description" content="Master a 10–15 minute day-to-night makeup transformation with quick tips for working women. Learn how to refresh your base, intensify eyes, and switch lips effortlessly." />
+            <meta name="keywords" content="day to night makeup, makeup transformation, quick makeup tips, makeup for working women, evening makeup look, desk to dinner makeup, Fashion Freude blog" />
+            <meta name="robots" content="index, follow" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link rel="canonical" href="https://fashionfreude.com/day-to-night-makeup-transformation" />
+
+            <meta property="og:type" content="article" />
+            <meta property="og:url" content="https://fashionfreude.com/day-to-night-makeup-transformation" />
+            <meta property="og:title" content="Day to Night Makeup Transformation: Quick Tips for Working Women | Fashion Freude" />
+            <meta property="og:description" content="Master a 10–15 minute day-to-night makeup transformation with quick tips for working women. Refresh your base, intensify your eyes, and add instant evening glam." />
+            <meta property="og:image" content="https://fashionfreude.com/blog03_v03.webp" />
+
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:url" content="https://fashionfreude.com/day-to-night-makeup-transformation" />
+            <meta name="twitter:title" content="Day to Night Makeup Transformation: Quick Tips for Working Women | Fashion Freude" />
+            <meta name="twitter:description" content="Master a 10–15 minute day-to-night makeup transformation with quick tips for working women. Refresh your base, intensify your eyes, and add instant evening glam." />
+            <meta name="twitter:image" content="https://fashionfreude.com/blog03_v03.webp" />
+        
 
         <div className="blog-page">
 
@@ -359,6 +380,8 @@ export default function DayToNightMakeupTransformation() {
             </div>
 
         </div>
+
+        </>
 
     );
 

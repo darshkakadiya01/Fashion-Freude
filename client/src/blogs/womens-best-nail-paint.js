@@ -5,6 +5,26 @@ import BlogImage from "./images/pink-nails-lead-art.webp"; // Change image path 
 
 export default function WomensBestNailPaint() {
   return (
+    <>
+    
+      <title>Women’s Best Nail Paint Styles & Trends | Fashion Freude</title>
+      <meta name="description" content="Explore the ultimate guide to women's best nail paint styles. Discover top nail colors, 3D art, velvet finishes, chrome trends, and affordable brands." />
+      <meta name="keywords" content="women best nail paint, nail polish trends, velvet nails, chrome nails, 3D nail art, french manicure, nail care tips, Lakme nail polish, OPI gel polish" />
+      <meta name="robots" content="index, follow" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content="Women’s Best Nail Paint Styles & Trending Colors" />
+      <meta property="og:description" content="Discover top nail art trends, trending shades, popular nail shapes, and long-lasting nail care tips in our comprehensive guide." />
+      <meta property="og:image" content="https://fashionfreude.com/images/pink-nails-lead-art.webp" />
+      <meta property="og:url" content="https://fashionfreude.com/womens-best-nail-paint" />
+      <meta property="og:site_name" content="Fashion Freude" />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Women’s Best Nail Paint Styles & Trends" />
+      <meta name="twitter:description" content="Explore top nail polishes, 3D art, velvet textures, and popular shades for everyday and special occasions." />
+      <meta name="twitter:image" content="https://fashionfreude.com/images/pink-nails-lead-art.webp" />
+
     <div className="blog-page">
 
       <div className="blog-container">
@@ -613,5 +633,7 @@ export default function WomensBestNailPaint() {
       </div>
 
     </div>
+
+    </>
   );
 }

@@ -4,6 +4,25 @@ import MakeupProductsImg from "./images/What-Are-the-Basic-Makeup-Products-for-B
 
 const MakeupProducts = () => {
   return (
+    <>
+    <title>Top 5 Must-Have Best Makeup Products for Every Woman | Fashion Freude</title>
+    <meta name="title" content="Top 5 Must-Have Best Makeup Products for Every Woman | Fashion Freude" />
+    <meta name="description" content="Discover the essential makeup routine with our guide to skin tints, lengthening mascaras, multi-use cream blushes, hydrating lip oils, and brow gels." />
+    <meta name="keywords" content="best makeup products, skin tint recommendations, multi-use cream blush, top mascara, lip oil trends, brow gel guide, Fashion Freude" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://fashionfreude.com/top-5-must-have-best-makeup-products-for-every-woman-in-2025" />
+    <meta property="og:title" content="Top 5 Must-Have Best Makeup Products for Every Woman | Fashion Freude" />
+    <meta property="og:description" content="Discover the essential makeup routine with our guide to skin tints, lengthening mascaras, multi-use cream blushes, hydrating lip oils, and brow gels." />
+    <meta property="og:image" content="https://fashionfreude.com/What-Are-the-Basic-Makeup-Products-for-Beginners_1024x1024-1.webp" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://fashionfreude.com/top-5-must-have-best-makeup-products-for-every-woman-in-2025" />
+    <meta name="twitter:title" content="Top 5 Must-Have Best Makeup Products for Every Woman | Fashion Freude" />
+    <meta name="twitter:description" content="Discover the essential makeup routine with our guide to skin tints, lengthening mascaras, multi-use cream blushes, hydrating lip oils, and brow gels." />
+    <meta name="twitter:image" content="https://fashionfreude.com/What-Are-the-Basic-Makeup-Products-for-Beginners_1024x1024-1.webp" />
+    
     <div className="blog-details-page">
       <div className="blog-details-container">
 
@@ -550,6 +569,8 @@ const MakeupProducts = () => {
       </div>
 
     </div>
+
+    </>
   );
 };
 

@@ -6,6 +6,25 @@ import BlogImage from "./images/s4Lgx3SSr5U8RMVNnBrJ-1.webp";
 export default function EverydayNaturalMakeupLook() {
 
     return (
+        <>
+
+        <title>Everyday Natural Makeup Look: Step-by-Step Guide for Beginners | Fashion Freude</title>
+        <meta name="title" content="Everyday Natural Makeup Look: Step-by-Step Guide for Beginners | Fashion Freude" />
+        <meta name="description" content="Master an effortless, everyday natural makeup look with this step-by-step beginner guide. Learn skincare prep, light base application, and subtle accent tips." />
+        <meta name="keywords" content="everyday natural makeup, beginner makeup guide, natural makeup tutorial, skin prep for makeup, BB cream tips, effortless makeup look, Fashion Freude blog" />
+        <meta name="robots" content="index, follow" />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://fashionfreude.com/everyday-natural-makeup-look" />
+        <meta property="og:title" content="Everyday Natural Makeup Look: Step-by-Step Guide for Beginners | Fashion Freude" />
+        <meta property="og:description" content="Master an effortless, everyday natural makeup look with this step-by-step beginner guide. Learn skincare prep, light base application, and subtle accent tips." />
+        <meta property="og:image" content="https://fashionfreude.com/s4Lgx3SSr5U8RMVNnBrJ-1.webp" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://fashionfreude.com/everyday-natural-makeup-look" />
+        <meta name="twitter:title" content="Everyday Natural Makeup Look: Step-by-Step Guide for Beginners | Fashion Freude" />
+        <meta name="twitter:description" content="Master an effortless, everyday natural makeup look with this step-by-step beginner guide. Learn skincare prep, light base application, and subtle accent tips." />
+        <meta name="twitter:image" content="https://fashionfreude.com/s4Lgx3SSr5U8RMVNnBrJ-1.webp" />
 
         <div className="blog-page">
 
@@ -362,6 +381,8 @@ export default function EverydayNaturalMakeupLook() {
             </div>
 
         </div>
+
+        </>
 
     );
 

@@ -6,6 +6,26 @@ import BlogImage from "./images/TBS-0067_823x-1-700x385.webp"; // Change path ac
 
 export default function TopSareeStylesTrends() {
   return (
+
+    <>
+      <title>10 Best Saree Styles & Fashion Trends in 2025 | Fashion Freude</title>
+      <meta name="description" content="Explore the top 10 saree styles and fashion trends of 2025. From traditional Banarasi silk and pastels to modern draped sarees, cape styles, and eco-friendly fabrics." />
+      <meta name="keywords" content="saree trends 2025, best saree styles, traditional silk sarees, Banarasi sarees, Kanjeevaram silk, pastel sarees, cape saree, net sarees, lehenga saree, ruffle saree, sustainable sarees, draped saree, saree gown" />
+      <meta name="robots" content="index, follow" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content="10 Best Saree Styles & Fashion Trends in 2025" />
+      <meta property="og:description" content="Discover the ultimate guide to saree fashion in 2025. Explore fusion drapes, pastel palettes, traditional silks, and sustainable trends for every occasion." />
+      <meta property="og:image" content="https://fashionfreude.com/images/TBS-0067_823x-1-700x385.webp" />
+      <meta property="og:url" content="https://fashionfreude.com/best-saree-styles-trends-2025" />
+      <meta property="og:site_name" content="Fashion Freude" />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="10 Best Saree Styles & Fashion Trends in 2025" />
+      <meta name="twitter:description" content="From traditional silks to modern draped gowns, check out the top 10 trending saree styles dominating fashion in 2025." />
+      <meta name="twitter:image" content="https://fashionfreude.com/images/TBS-0067_823x-1-700x385.webp" />
+
     <div className="blog-page">
 
       {/* ================= Hero ================= */}
@@ -427,5 +447,7 @@ export default function TopSareeStylesTrends() {
       </div>
 
     </div>
+
+    </>
   );
 }

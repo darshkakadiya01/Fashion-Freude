@@ -3,6 +3,26 @@ import "./Returns.css";
 function Returns() {
 
     return (
+<>
+<title>Refund and Returns Policy | Fashion Freude</title>
+<meta name="title" content="Refund and Returns Policy | Fashion Freude" />
+<meta name="description" content="Read the Refund and Returns Policy for Fashion Freude. Learn about our 30-day return window, eligibility requirements, non-returnable items, and refund process." />
+<meta name="keywords" content="Fashion Freude return policy, refund policy, 30 day return, ethnic wear returns, Fashion Freude refunds" />
+<meta name="robots" content="index, follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="canonical" href="https://fashionfreude.com/returns-and-refunds" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://fashionfreude.com/returns-and-refunds" />
+<meta property="og:title" content="Refund and Returns Policy | Fashion Freude" />
+<meta property="og:description" content="Learn about our 30-day return policy, eligibility criteria, non-returnable ethnic wear items, and refund processing details at Fashion Freude." />
+<meta property="og:image" content="https://fashionfreude.com/logo.png" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:url" content="https://fashionfreude.com/returns-and-refunds" />
+<meta name="twitter:title" content="Refund and Returns Policy | Fashion Freude" />
+<meta name="twitter:description" content="Learn about our 30-day return policy, eligibility criteria, non-returnable ethnic wear items, and refund processing details at Fashion Freude." />
+<meta name="twitter:image" content="https://fashionfreude.com/logo.png" />
 
         
 
@@ -206,6 +226,10 @@ function Returns() {
             </section>
 
         </section>
+
+        
+        
+</>
 
     );
 

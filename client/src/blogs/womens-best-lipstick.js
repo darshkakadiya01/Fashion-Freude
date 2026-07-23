@@ -6,6 +6,24 @@ import BlogImage from "./images/istockphoto-1425609087-612x612-1.webp";
 export default function WomensBestLipstick() {
 
     return (
+        <>
+        <title>Top 10 Best Lipsticks for Women: Global & Indian Picks | Fashion Freude</title>
+        <meta name="description" content="Discover the best women's lipsticks featuring long-lasting, hydrating, and highly pigmented formulas. Compare top global and Indian lipstick brands." />
+        <meta name="keywords" content="best women lipstick, matte lipstick, satin lipstick, long lasting lip color, liquid lipstick, MAC lipstick, Maybelline vinyl ink, Lakme primer matte, Sugar cosmetics lipstick" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="Top 10 Women’s Best Lipsticks: The Ultimate Lip Guide" />
+        <meta property="og:description" content="Explore top-rated lipsticks from luxury global brands to affordable Indian favorites. Find your perfect shade and formula." />
+        <meta property="og:image" content="https://fashionfreude.com/images/istockphoto-1425609087-612x612-1.webp" />
+        <meta property="og:url" content="https://fashionfreude.com/womens-best-lipstick" />
+        <meta property="og:site_name" content="Fashion Freude" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Top 10 Best Lipsticks for Women" />
+        <meta name="twitter:description" content="Find long-wearing, hydrating, and pigmented lipsticks across top global and Indian beauty brands." />
+        <meta name="twitter:image" content="https://fashionfreude.com/images/istockphoto-1425609087-612x612-1.webp" />
 
         <div className="blog-page">
 
@@ -325,6 +343,8 @@ export default function WomensBestLipstick() {
             </div>
 
         </div>
+
+        </>
 
     );
 

@@ -6,7 +6,25 @@ import BlogImage from "./images/5-Common-Mistakes-You-Could-Make-Using-an-Eyelin
 export default function BestEyeliners() {
 
     return (
+        <>
+        <title>Top 10 Best Eyeliners in 2025: Liquid, Gel, Pencil & Kajal | Fashion Freude</title>
+        <meta name="description" content="Discover the top 10 best eyeliners in 2025 featuring top international and Indian brands. Find long-lasting, waterproof, and smudge-proof liners from Stila, Maybelline, Lakmé, Rare Beauty, and more." />
+        <meta name="keywords" content="best eyeliners 2025, liquid eyeliner, gel eyeliner, waterproof eyeliner, smudge-proof kajal, Stila Stay All Day, Maybelline Hyper Glossy, Rare Beauty eyeliner, Lakme Eyeconic" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="Top 10 Best Eyeliners in 2025 - Ultimate Guide" />
+        <meta property="og:description" content="Looking for the perfect flick or long-lasting kajal? Explore the top-rated international and Indian eyeliners tested for precision and durability." />
+        <meta property="og:image" content="https://fashionfreude.com/images/5-Common-Mistakes-You-Could-Make-Using-an-Eyeliner-Pencil-2-1-1024x576-1.webp" />
+        <meta property="og:url" content="https://fashionfreude.com/best-eyeliners" />
+        <meta property="og:site_name" content="Fashion Freude" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Top 10 Best Eyeliners in 2025" />
+        <meta name="twitter:description" content="Explore top-rated eyeliners from international classics to Indian favorites. Long-lasting, waterproof, and smudge-proof picks." />
+        <meta name="twitter:image" content="https://fashionfreude.com/images/5-Common-Mistakes-You-Could-Make-Using-an-Eyeliner-Pencil-2-1-1024x576-1.webp" />
+        
         <div className="blog-page">
 
             <div className="blog-container">
@@ -321,6 +339,8 @@ export default function BestEyeliners() {
             </div>
 
         </div>
+
+        </>
 
     );
 

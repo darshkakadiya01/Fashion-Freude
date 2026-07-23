@@ -6,6 +6,24 @@ import BlogImage from "./images/108901ae-eafc-47b4-9c6c-28d6e377d27d-1.webp";
 export default function MakeupForDifferentFaceShapesTipsToEnhanceYourNaturalFeatures() {
 
     return (
+        <>
+       <title>Makeup for Different Face Shapes: Enhance Your Features | Fashion Freude</title>
+        <meta name="title" content="Makeup for Different Face Shapes: Enhance Your Features | Fashion Freude" />
+        <meta name="description" content="Discover how to apply makeup according to your face shape. Master contouring, highlighting, blush placement, and brow shaping for oval, round, square, heart, oblong, and diamond face shapes." />
+        <meta name="keywords" content="makeup for face shapes, contouring guide by face shape, blush placement tips, eyebrow shapes for face, face shape analysis, Fashion Freude" />
+        <meta name="robots" content="index, follow" />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://fashionfreude.com/makeup-for-different-face-shapes-tips-to-enhance-your-natural-features" />
+        <meta property="og:title" content="Makeup for Different Face Shapes: Enhance Your Features | Fashion Freude" />
+        <meta property="og:description" content="Discover how to apply makeup according to your face shape. Master contouring, highlighting, blush placement, and brow shaping for oval, round, square, heart, oblong, and diamond face shapes." />
+        <meta property="og:image" content="https://fashionfreude.com/108901ae-eafc-47b4-9c6c-28d6e377d27d-1.webp" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://fashionfreude.com/makeup-for-different-face-shapes-tips-to-enhance-your-natural-features" />
+        <meta name="twitter:title" content="Makeup for Different Face Shapes: Enhance Your Features | Fashion Freude" />
+        <meta name="twitter:description" content="Discover how to apply makeup according to your face shape. Master contouring, highlighting, blush placement, and brow shaping for oval, round, square, heart, oblong, and diamond face shapes." />
+        <meta name="twitter:image" content="https://fashionfreude.com/108901ae-eafc-47b4-9c6c-28d6e377d27d-1.webp" />
 
         <div className="blog-page">
 
@@ -482,6 +500,8 @@ export default function MakeupForDifferentFaceShapesTipsToEnhanceYourNaturalFeat
             </div>
 
         </div>
+
+         </>
 
     );
 

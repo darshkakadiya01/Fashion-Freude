@@ -4,6 +4,28 @@ function PrivacyPolicy() {
 
     return (
 
+        <>
+            <title>Privacy Policy | Fashion Freude</title>
+            <meta name="title" content="Privacy Policy | Fashion Freude" />
+            <meta name="description" content="Read the official Privacy Policy for Fashion Freude. Learn how we collect, use, store, and protect your personal data, cookies, and account details." />
+            <meta name="keywords" content="Fashion Freude privacy policy, data protection, user privacy, cookies policy, Fashion Freude terms" />
+            <meta name="robots" content="index, follow" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link rel="canonical" href="https://fashionfreude.com/privacy-policy" />
+
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://fashionfreude.com/privacy-policy" />
+            <meta property="og:title" content="Privacy Policy | Fashion Freude" />
+            <meta property="og:description" content="Learn how Fashion Freude protects your privacy, manages user data, and ensures safe shopping across our website." />
+            <meta property="og:image" content="https://fashionfreude.com/logo.png" />
+
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:url" content="https://fashionfreude.com/privacy-policy" />
+            <meta name="twitter:title" content="Privacy Policy | Fashion Freude" />
+            <meta name="twitter:description" content="Learn how Fashion Freude protects your privacy, manages user data, and ensures safe shopping across our website." />
+            <meta name="twitter:image" content="https://fashionfreude.com/logo.png" />
+       
+
         <section className="privacy-page">
 
             <div className="container">
@@ -204,6 +226,8 @@ function PrivacyPolicy() {
             </div>
 
         </section>
+
+         </>
 
     );
 

@@ -194,6 +194,30 @@ const showNextImage = () => {
 };
     return (
 
+        <>
+            <title>Fashion Freude</title>
+            <meta name="title" content="Buy {product.name} Online | Fashion Freude" />
+            <meta name="description" content="Shop {product.name} for ₹{product.price} at Fashion Freude. Discover high-quality {product.category} with free shipping, secure payment, and easy 7-day returns." />
+            <meta name="keywords" content="{product.name}, buy {product.name}, {product.category}, Fashion Freude, ethnic wear online, latest {product.category} collection" />
+            <meta name="robots" content="index, follow" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link rel="canonical" href="https://fashionfreude.com/product/{slug}" />
+
+            <meta property="og:type" content="product" />
+            <meta property="og:url" content="https://fashionfreude.com/product/{slug}" />
+            <meta property="og:title" content="{product.name} | Fashion Freude" />
+            <meta property="og:description" content="Buy {product.name} for ₹{product.price}. Premium quality {product.category} with fast shipping and easy returns." />
+            <meta property="og:image" content="{selectedImage}" />
+            <meta property="product:price:amount" content="{product.price}" />
+            <meta property="product:price:currency" content="INR" />
+
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:url" content="https://fashionfreude.com/product/{slug}" />
+            <meta name="twitter:title" content="{product.name} | Fashion Freude" />
+            <meta name="twitter:description" content="Buy {product.name} for ₹{product.price}. Premium quality {product.category} with fast shipping and easy returns." />
+            <meta name="twitter:image" content="{selectedImage}" />
+        
+
         <section className="product-details-page">
 
             <div className="container">
@@ -629,6 +653,8 @@ const showNextImage = () => {
             </div>
 
         </section>
+
+        </>
 
     );
 

@@ -5,6 +5,26 @@ import { FaCalendarAlt, FaUser, FaTag } from "react-icons/fa";
 
 const BestTrackPant = () => {
   return (
+    <>
+    <title>Women’s Best Track Pant Styles & Trends in 2025 | Fashion Freude</title>
+    <meta name="description" content="Explore top women's track pant trends for 2025. Discover high-waisted joggers, cargo track pants, flared Y2K styles, co-ord sets, and luxury velvet options." />
+    <meta name="keywords" content="women track pants trends 2025, high waisted track pants, cargo joggers women, flared track pants, co-ord loungewear, sustainable athleisure, streetwear pants" />
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Women’s Best Track Pant Styles & Trends in 2025" />
+    <meta property="og:description" content="From streetwear to athleisure: Your ultimate style guide for women's track pants in 2025. Find the best fits, fabrics, and colors." />
+    <meta property="og:image" content="https://fashionfreude.com/images/skd7446eaw23limgrn-3_823x-1.webp" />
+    <meta property="og:url" content="https://fashionfreude.com/best-track-pants" />
+    <meta property="og:site_name" content="Fashion Freude" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Women’s Best Track Pant Styles & Trends in 2025" />
+    <meta name="twitter:description" content="Elevate your athleisure look! Discover 2025 track pant trends including utility cargos, flared retro fits, and eco-friendly options." />
+    <meta name="twitter:image" content="https://fashionfreude.com/images/skd7446eaw23limgrn-3_823x-1.webp" />
+
+
     <div className="blog-details-page">
 
       <div className="blog-details-container">
@@ -519,6 +539,8 @@ const BestTrackPant = () => {
       </div>
 
     </div>
+
+    </>
   );
 };
 

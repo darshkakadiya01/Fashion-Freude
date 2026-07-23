@@ -6,6 +6,24 @@ import BlogImage from "./images/4EE46596-BB26-48F2-8918-6AF0E32F6E68_1_201_a.web
 export default function BestBudgetFriendlyWallet() {
 
     return (
+        <>
+        <title>Best Budget-Friendly Wallet Brands That Look Premium | Fashion Freude</title>
+        <meta name="description" content="Discover the best budget-friendly wallet brands that offer a luxury, premium look under ₹2,500. Explore top picks from Zouk, Baggit, Lino Perros, Caprese, and more." />
+        <meta name="keywords" content="budget friendly wallets, premium looking wallets, women wallets, Zouk wallets, Baggit, Caprese, Lavie, Lino Perros, affordable luxury wallets" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="Best Budget-Friendly Wallet Brands That Look Premium" />
+        <meta property="og:description" content="High-quality materials, elegant designs, and practical features without the designer price tag. Find your next favorite wallet brand." />
+        <meta property="og:image" content="https://fashionfreude.com/images/4EE46596-BB26-48F2-8918-6AF0E32F6E68_1_201_a.webp" />
+        <meta property="og:url" content="https://fashionfreude.com/best-budget-friendly-wallet" />
+        <meta property="og:site_name" content="Fashion Freude" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Best Budget-Friendly Wallet Brands That Look Premium" />
+        <meta name="twitter:description" content="High-quality materials, elegant designs, and practical features without the designer price tag." />
+        <meta name="twitter:image" content="https://fashionfreude.com/images/4EE46596-BB26-48F2-8918-6AF0E32F6E68_1_201_a.webp" />
 
         <div className="blog-page">
 
@@ -492,6 +510,8 @@ export default function BestBudgetFriendlyWallet() {
             </div>
 
         </div>
+
+        </>
 
     );
 

@@ -12,6 +12,28 @@ function Contactus() {
 
     return (
 
+        <>
+<title>Contact Us | Fashion Freude</title>
+<meta name="title" content="Contact Us | Fashion Freude" />
+<meta name="description" content="Have questions or need support? Contact Fashion Freude today. Find FAQs on shipping, returns, order tracking, or send our team a direct message." />
+<meta name="keywords" content="Fashion Freude contact, Fashion Freude customer support, Fashion Freude help, customer service, FAQs" />
+<meta name="robots" content="index, follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="canonical" href="https://fashionfreude.com/contact-us" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://fashionfreude.com/contact-us" />
+<meta property="og:title" content="Contact Us | Fashion Freude" />
+<meta property="og:description" content="Get in touch with Fashion Freude. Find answers to frequently asked questions or send us a message directly." />
+<meta property="og:image" content="https://fashionfreude.com/logo.png" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:url" content="https://fashionfreude.com/contact-us" />
+<meta name="twitter:title" content="Contact Us | Fashion Freude" />
+<meta name="twitter:description" content="Get in touch with Fashion Freude. Find answers to frequently asked questions or send us a message directly." />
+<meta name="twitter:image" content="https://fashionfreude.com/logo.png" />
+        
+
         <section className="contact-page">
 
             <div className="contact-container">
@@ -266,6 +288,8 @@ function Contactus() {
             </div>
 
         </section>
+
+        </>
 
     );
 

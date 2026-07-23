@@ -6,6 +6,24 @@ import BlogImage from "./images/Lotus_Makeup_Fondation.webp";
 export default function FoundationForYourSkinTone() {
 
     return (
+        <>
+            <title>How to Choose the Right Foundation for Your Skin Tone | Fashion Freude</title>
+            <meta name="title" content="How to Choose the Right Foundation for Your Skin Tone | Fashion Freude" />
+            <meta name="description" content="Learn how to choose the perfect foundation for your skin tone and undertone. Discover skin types, coverage options, finishes, and product recommendations." />
+            <meta name="keywords" content="choose foundation shade, skin undertone test, foundation guide, foundation for oily skin, foundation for dry skin, shade matching guide, Fashion Freude" />
+            <meta name="robots" content="index, follow" />
+
+            <meta property="og:type" content="article" />
+            <meta property="og:url" content="https://fashionfreude.com/foundation-for-your-skin-tone" />
+            <meta property="og:title" content="How to Choose the Right Foundation for Your Skin Tone | Fashion Freude" />
+            <meta property="og:description" content="Learn how to choose the perfect foundation for your skin tone and undertone. Discover skin types, coverage options, finishes, and product recommendations." />
+            <meta property="og:image" content="https://fashionfreude.com/Lotus_Makeup_Fondation.webp" />
+
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:url" content="https://fashionfreude.com/foundation-for-your-skin-tone" />
+            <meta name="twitter:title" content="How to Choose the Right Foundation for Your Skin Tone | Fashion Freude" />
+            <meta name="twitter:description" content="Learn how to choose the perfect foundation for your skin tone and undertone. Discover skin types, coverage options, finishes, and product recommendations." />
+            <meta name="twitter:image" content="https://fashionfreude.com/Lotus_Makeup_Fondation.webp" />
 
         <div className="blog-page">
 
@@ -398,6 +416,8 @@ export default function FoundationForYourSkinTone() {
             </div>
 
         </div>
+
+        </>
 
     );
 

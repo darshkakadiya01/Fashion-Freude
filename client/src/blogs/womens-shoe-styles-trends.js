@@ -7,6 +7,26 @@ import { FaCalendarAlt, FaUser, FaTag } from "react-icons/fa";
 
 const WomensShoeStylesTrends = () => {
   return (
+
+    <>
+    <title>Women’s Best Shoe Styles & Trends | Fashion Freude</title>
+    <meta name="description" content="Explore the ultimate guide to women's best shoe styles and footwear trends. Discover top sneakers, platform sandals, loafers, heels, and sustainable shoe choices." />
+    <meta name="keywords" content="women shoe styles, trendy footwear, chunky sneakers, platform sandals, modern loafers, strappy heels, ballet flats, combat boots, sustainable shoes" />
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Women’s Best Shoe Styles & Footwear Trends" />
+    <meta property="og:description" content="From chunky sneakers to elegant strappy heels, explore the top footwear trends and styling tips in our complete guide." />
+    <meta property="og:image" content="https://fashionfreude.com/images/4-1.webp" />
+    <meta property="og:url" content="https://fashionfreude.com/womens-shoe-styles-trends" />
+    <meta property="og:site_name" content="Fashion Freude" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Women’s Best Shoe Styles & Footwear Trends" />
+    <meta name="twitter:description" content="Discover popular footwear designs, trending color palettes, and expert styling tips for every occasion." />
+    <meta name="twitter:image" content="https://fashionfreude.com/images/4-1.webp" />
+    
     <div className="blog-details-page">
       <div className="blog-details-container">
 
@@ -442,6 +462,8 @@ const WomensShoeStylesTrends = () => {
 
       </div>
     </div>
+
+    </>
   );
 };
 

@@ -252,6 +252,28 @@ function Blogs() {
 
     return (
 
+        <>
+        <title>Fashion & Beauty Blogs | Fashion Freude</title>
+        <meta name="title" content="Fashion & Beauty Blogs | Fashion Freude" />
+        <meta name="description" content="Explore the latest articles on women's fashion, beauty tips, hair styles, footwear trends, nail art inspiration, and makeup guides at Fashion Freude." />
+        <meta name="keywords" content="fashion blog, beauty trends, makeup guides, women hairstyles, footwear trends, Fashion Freude blogs" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="canonical" href="https://fashionfreude.com/blogs" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://fashionfreude.com/blogs" />
+        <meta property="og:title" content="Fashion & Beauty Blogs | Fashion Freude" />
+        <meta property="og:description" content="Explore the latest articles on women's fashion, beauty tips, hair styles, footwear trends, nail art inspiration, and makeup guides." />
+        <meta property="og:image" content="https://fashionfreude.com/logo.png" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content="https://fashionfreude.com/blogs" />
+        <meta name="twitter:title" content="Fashion & Beauty Blogs | Fashion Freude" />
+        <meta name="twitter:description" content="Explore the latest articles on women's fashion, beauty tips, hair styles, footwear trends, nail art inspiration, and makeup guides." />
+        <meta name="twitter:image" content="https://fashionfreude.com/logo.png" />
+        
+
         <section className="blogs-page">
 
             <div className="container">
@@ -330,7 +352,7 @@ function Blogs() {
             </div>
 
         </section>
-
+</>
     );
 
 }

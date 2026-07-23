@@ -7,6 +7,27 @@ const BestPant = () => {
 
   return (
 
+    <>
+    <title>Women’s Best Pant Styles & Trends in 2025 | Fashion Freude</title>
+    <meta name="description" content="Discover the top women's pant styles and fashion trends for 2025. From wide-leg and high-waisted trousers to cargo pants and co-ord sets, find your perfect fit." />
+    <meta name="keywords" content="women pant styles 2025, trending trousers for women, wide leg pants, cargo utility pants, high waisted pants, bootcut jeans, co-ord sets, womens fashion trends" />
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Women’s Best Pant Styles & Trends in 2025" />
+    <meta property="og:description" content="The ultimate style guide for modern women's pants. Explore wide-leg wonders, utility cargos, and classic straight-leg fits tailored for every occasion." />
+    <meta property="og:image" content="https://fashionfreude.com/images/straightleg-ponte-pants-navy-107-Model-1.webp" />
+    <meta property="og:url" content="https://fashionfreude.com/best-pant-styles" />
+    <meta property="og:site_name" content="Fashion Freude" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Women’s Best Pant Styles & Trends in 2025" />
+    <meta property="og:description" content="The ultimate style guide for modern women's pants. Explore wide-leg wonders, utility cargos, and classic straight-leg fits tailored for every occasion." />
+    <meta property="og:image" content="https://fashionfreude.com/images/straightleg-ponte-pants-navy-107-Model-1.webp" />
+    <meta property="og:url" content="https://fashionfreude.com/best-pant-styles" />
+    <meta property="og:site_name" content="Fashion Freude" />
+
     <div className="blog-details-page">
 
 
@@ -748,7 +769,7 @@ const BestPant = () => {
 
 
     </div>
-
+</>
 
   );
 

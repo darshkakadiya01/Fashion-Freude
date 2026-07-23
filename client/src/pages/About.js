@@ -3,6 +3,131 @@ import "./About.css";
 function About() {
 
     return (
+        <>
+
+            <title>
+                About Fashion Freude | Online Fashion Store
+            </title>
+
+
+            <meta
+                name="description"
+                content="Learn about Fashion Freude, our mission, working process, values, and commitment to providing quality fashion products with a seamless online shopping experience."
+            />
+
+
+            <meta
+                name="keywords"
+                content="Fashion Freude, online fashion store, clothing store, fashion shopping, premium fashion products, affordable fashion"
+            />
+
+
+            <meta
+                name="author"
+                content="Fashion Freude"
+            />
+
+
+            <meta
+                name="robots"
+                content="index, follow"
+            />
+
+
+            <link
+                rel="canonical"
+                href="https://fashionfreude.com/about-us"
+            />
+
+
+            {/* Open Graph */}
+
+            <meta
+                property="og:title"
+                content="About Fashion Freude | Online Fashion Store"
+            />
+
+
+            <meta
+                property="og:description"
+                content="Discover Fashion Freude's story, values, and commitment to delivering quality fashion products online."
+            />
+
+
+            <meta
+                property="og:type"
+                content="website"
+            />
+
+
+            <meta
+                property="og:url"
+                content="https://fashionfreude.com/about-us"
+            />
+
+
+            <meta
+                property="og:image"
+                content="https://fashionfreude.com/images/about-fashion.jpg"
+            />
+
+
+            {/* Twitter SEO */}
+
+            <meta
+                name="twitter:card"
+                content="summary_large_image"
+            />
+
+
+            <meta
+                name="twitter:title"
+                content="About Fashion Freude | Online Fashion Store"
+            />
+
+
+            <meta
+                name="twitter:description"
+                content="Know more about Fashion Freude, our products, process, and customer-first approach."
+            />
+
+
+            <meta
+                name="twitter:image"
+                content="https://fashionfreude.com/images/about-fashion.jpg"
+            />
+
+
+            {/* Schema Markup */}
+
+            <script type="application/ld+json">
+
+                {JSON.stringify({
+
+                    "@context": "https://schema.org",
+
+                    "@type": "Organization",
+
+                    "name": "Fashion Freude",
+
+                    "url": "https://fashionfreude.com",
+
+                    "logo": "https://fashionfreude.com/logo.png",
+
+                    "description":
+                    "Fashion Freude is an online fashion store offering quality products with a smooth shopping experience.",
+
+                    "sameAs": [
+
+                        "https://www.instagram.com",
+
+                        "https://www.facebook.com"
+
+                    ]
+
+                })}
+
+            </script>
 
         <section className="about-page">
 
@@ -464,6 +589,8 @@ function About() {
             </section>
 
         </section>
+
+        </>
 
     );
 

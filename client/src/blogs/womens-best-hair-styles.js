@@ -5,6 +5,25 @@ import BlogImage from "./images/indian-hairstyles-for-women.webp"; // Change pat
 
 export default function WomensBestHairStyles() {
   return (
+    <>
+    <title>Women’s Best Hairstyles & Hair Color Trends in 2025 | Fashion Freude</title>
+    <meta name="description" content="Discover the best women's hairstyles and hair color trends of 2025. Explore French bobs, mixie cuts, '90s blowouts, sunset balayage, and expert hair care tips." />
+    <meta name="keywords" content="women hairstyles 2025, best hair cuts 2025, French bob, mixie cut, 90s blowout, fairy waves, espresso brunette, sunset balayage, toasted coconut brunette, trending hair colors" />
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Women’s Best Hairstyles & Hair Color Trends in 2025" />
+    <meta property="og:description" content="From ultra-short bobs and mixie cuts to dreamy fairy waves and sunset balayage, explore the top trending hair styles and color transformations for 2025." />
+    <meta property="og:image" content="https://fashionfreude.com/images/indian-hairstyles-for-women.webp" />
+    <meta property="og:url" content="https://fashionfreude.com/womens-best-hairstyles-2025" />
+    <meta property="og:site_name" content="Fashion Freude" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Women’s Best Hairstyles & Hair Color Trends in 2025" />
+    <meta name="twitter:description" content="Explore top 2025 hairstyle trends, celebrity transformations, and vibrant hair colors with expert styling tips." />
+    <meta name="twitter:image" content="https://fashionfreude.com/images/indian-hairstyles-for-women.webp" />
+
     <div className="blog-page">
 
       <div className="blog-container">
@@ -355,6 +374,8 @@ export default function WomensBestHairStyles() {
       </div>
 
     </div>
+
+    </>
   );
 }
 

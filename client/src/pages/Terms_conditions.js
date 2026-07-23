@@ -4,6 +4,28 @@ function Terms_conditions() {
 
     return (
 
+        <>
+<title>Terms and Conditions | Fashion Freude</title>
+<meta name="title" content="Terms and Conditions | Fashion Freude" />
+<meta name="description" content="Read the official Terms and Conditions for Fashion Freude. Understand our policies on website use, account registration, orders, pricing, shipping, and returns." />
+<meta name="keywords" content="Fashion Freude terms and conditions, terms of service, user agreement, shopping policy, Fashion Freude terms" />
+<meta name="robots" content="index, follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="canonical" href="https://fashionfreude.com/terms-and-conditions" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://fashionfreude.com/terms-and-conditions" />
+<meta property="og:title" content="Terms and Conditions | Fashion Freude" />
+<meta property="og:description" content="Read the official Terms and Conditions for Fashion Freude. Understand our policies on website use, account registration, orders, and shipping." />
+<meta property="og:image" content="https://fashionfreude.com/logo.png" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:url" content="https://fashionfreude.com/terms-and-conditions" />
+<meta name="twitter:title" content="Terms and Conditions | Fashion Freude" />
+<meta name="twitter:description" content="Read the official Terms and Conditions for Fashion Freude. Understand our policies on website use, account registration, orders, and shipping." />
+<meta name="twitter:image" content="https://fashionfreude.com/logo.png" />
+        
+
         <section className="terms-page">
 
                 <div className="privacy-header">
@@ -269,6 +291,8 @@ function Terms_conditions() {
             </section>
 
         </section>
+
+        </>
 
     );
 
