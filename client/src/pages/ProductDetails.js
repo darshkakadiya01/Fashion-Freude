@@ -7,6 +7,7 @@ import "./ProductDetails.css";
 
 function ProductDetails() {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const { slug } = useParams();
 
     const navigate = useNavigate();
@@ -21,9 +22,22 @@ function ProductDetails() {
 
     const [selectedImage, setSelectedImage] = useState("");
 
+    const getImageUrl = (img) => {
+        if (!img || typeof img !== "string") return "/no-image.png";
+
+        if (img.startsWith("http")) return img;
+
+        const normalized = img
+            .replace(/\\/g, "/")
+            .replace(/^\/+/, "")
+            .replace(/^uploads\//i, "");
+
+        return `${API_BASE_URL}/uploads/${normalized}`;
+    };
+
     useEffect(() => {
     if (product) {
-        setSelectedImage(product.image);
+        setSelectedImage(getImageUrl(product.image));
     }
 }, [product]);
 
@@ -35,14 +49,14 @@ const getProduct = async () => {
     try {
 
         const res = await axios.get(
-            `http://localhost:5000/api/products/${slug}`
+            `${API_BASE_URL}/api/products/${slug}`
         );
 
         setProduct(res.data);
 
         if (res.data.image) {
 
-            setSelectedImage(res.data.image);
+            setSelectedImage(getImageUrl(res.data.image));
 
         }
 
@@ -130,11 +144,17 @@ const getProduct = async () => {
         ((oldPrice - product.price) / oldPrice) * 100
     );
 
+    const rawGallery = Array.isArray(product?.gallery)
+        ? product.gallery
+        : typeof product?.gallery === "string"
+            ? JSON.parse(product.gallery)
+            : [];
+
     const allImages = product
     ? [
           product.image,
-          ...(product.gallery || [])
-      ].filter(Boolean)
+          ...rawGallery
+      ].filter(Boolean).map((img) => getImageUrl(img))
     : [];
 
 const showPrevImage = () => {
@@ -194,8 +214,11 @@ const showNextImage = () => {
     <div className="main-image-box">
 
         <img
-            src={selectedImage || product.image}
+            src={selectedImage || getImageUrl(product.image)}
             alt={product.name}
+            onError={(e) => {
+                e.target.src = "/no-image.png";
+            }}
         />
 
     </div>

@@ -4,6 +4,8 @@ import "./App.css";
 
 function Cart() {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
+
     const {
         cart,
         increaseQty,
@@ -90,8 +92,11 @@ function Cart() {
                                                 <div className="cart-image">
 
                                                     <img
-                                                        src={item.image}
+                                                        src={item.image?.startsWith("http") ? item.image : `${API_BASE_URL}/uploads/${item.image?.replace(/^uploads[\\/]/, "")}`}
                                                         alt={item.name}
+                                                        onError={(e) => {
+                                                            e.target.src = "/no-image.png";
+                                                        }}
                                                     />
 
                                                 </div>

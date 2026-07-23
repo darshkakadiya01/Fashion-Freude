@@ -2,6 +2,29 @@ const Product = require("../models/Product");
 const slugify = require("slugify");
 const { Op } = require("sequelize");
 
+const normalizeProduct = (product) => {
+    const plainProduct = product.toJSON ? product.toJSON() : product;
+
+    let gallery = plainProduct.gallery;
+
+    if (typeof gallery === "string") {
+        try {
+            gallery = JSON.parse(gallery);
+        } catch (error) {
+            gallery = [];
+        }
+    }
+
+    if (!Array.isArray(gallery)) {
+        gallery = [];
+    }
+
+    return {
+        ...plainProduct,
+        gallery
+    };
+};
+
 // ===============================
 // Get All Products
 // ===============================
@@ -12,7 +35,7 @@ exports.getProducts = async (req, res) => {
             order: [["createdAt", "DESC"]]
         });
 
-        return res.status(200).json(products);
+        return res.status(200).json(products.map(normalizeProduct));
 
     } catch (error) {
 
@@ -44,7 +67,7 @@ exports.getProductBySlug = async (req, res) => {
             });
         }
 
-        return res.status(200).json(product);
+        return res.status(200).json(normalizeProduct(product));
 
     } catch (error) {
 
@@ -109,7 +132,7 @@ exports.addProduct = async (req, res) => {
         return res.status(201).json({
             success: true,
             message: "Product Added Successfully",
-            product
+            product: normalizeProduct(product)
         });
 
     } catch (error) {
@@ -184,7 +207,7 @@ exports.updateProduct = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Product Updated Successfully",
-            product
+            product: normalizeProduct(product)
         });
 
     } catch (error) {
@@ -272,7 +295,7 @@ exports.getProductsByCategory = async (req, res) => {
 
         console.log("Matched Products:", products.length);
 
-        return res.status(200).json(products);
+        return res.status(200).json(products.map(normalizeProduct));
 
     } catch (error) {
 
@@ -328,7 +351,7 @@ exports.searchProducts = async (req, res) => {
 
         });
 
-        return res.status(200).json(products);
+        return res.status(200).json(products.map(normalizeProduct));
 
     } catch (error) {
 

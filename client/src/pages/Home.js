@@ -7,6 +7,7 @@ import { blogs } from "../blogs/Blogs";
 
 function Home() {
   
+const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
 const [products, setProducts] = useState([]);
 const [selectedCategory, setSelectedCategory] = useState("All");
 const [currentPage, setCurrentPage] = useState(1);
@@ -17,7 +18,7 @@ const [productsPerPage, setProductsPerPage] = useState(8);
 const categories = [
   "All",
   "Kurti",
-  "Sarres",
+  "Saree",
   "Lehenga Choli",
   "Salwar Suit",
 ];
@@ -31,7 +32,7 @@ const getProducts = async () => {
   try {
 
     const res = await axios.get(
-      "http://localhost:5000/api/products"
+      `${API_BASE_URL}/api/products`
     );
 
     setProducts(res.data);

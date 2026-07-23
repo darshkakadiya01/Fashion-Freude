@@ -5,6 +5,7 @@ import "./Checkout.css";
 
 function Checkout() {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const { cart, clearCart } = useCart();
 
     const [form, setForm] = useState({
@@ -80,7 +81,7 @@ function Checkout() {
 
             const res = await axios.post(
 
-                "http://localhost:5000/api/orders",
+                `${API_BASE_URL}/api/orders`,
 
                 orderData
 
@@ -215,9 +216,12 @@ function Checkout() {
                                         >
 
                                             <img
-                                                src={item.image}
+                                                src={item.image?.startsWith("http") ? item.image : `${API_BASE_URL}/uploads/${item.image?.replace(/^uploads[\\/]/, "")}`}
                                                 alt={item.name}
                                                 className="checkout-product-image"
+                                                onError={(e) => {
+                                                    e.target.src = "/no-image.png";
+                                                }}
                                             />
 
                                             <div className="checkout-product-info">

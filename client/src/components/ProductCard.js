@@ -3,12 +3,18 @@ import "./ProductCard.css";
 
 function ProductCard({ product }) {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
+
+    const getImageUrl = (img) => {
+        if (!img) return "/no-image.png";
+        if (img.startsWith("http")) return img;
+        return `${API_BASE_URL}/uploads/${img.replace(/^uploads[\\/]/, "")}`;
+    };
+
     // Show only first 4 words of product name
     const shortTitle = product.name
         ? product.name.split(" ").slice(0, 4).join(" ")
         : "";
-
-    console.log(product);
 
     return (
 
@@ -21,9 +27,12 @@ function ProductCard({ product }) {
                 </span>
 
                 <img
-                    src={product.image}
+                    src={getImageUrl(product.image)}
                     alt={product.name}
                     className="shop-image"
+                    onError={(e) => {
+                        e.target.src = "/no-image.png";
+                    }}
                 />
 
             </div>

@@ -3,14 +3,21 @@ import axios from "axios";
 
 function ProductList() {
 
+    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const [products, setProducts] = useState([]);
+
+    const getImageUrl = (img) => {
+        if (!img) return "/no-image.png";
+        if (img.startsWith("http")) return img;
+        return `${API_BASE_URL}/uploads/${img.replace(/^uploads[\\/]/, "")}`;
+    };
 
     const getProducts = async () => {
 
         try {
 
             const res = await axios.get(
-                "http://localhost:5000/api/products"
+                `${API_BASE_URL}/api/products`
             );
 
             setProducts(res.data);
@@ -39,7 +46,7 @@ function ProductList() {
     try {
 
         const res = await axios.delete(
-            `http://localhost:5000/api/products/delete/${id}`
+            `${API_BASE_URL}/api/products/delete/${id}`
         );
 
         alert(res.data.message);
@@ -64,7 +71,7 @@ const editProduct = async (product) => {
 
         const res = await axios.put(
 
-            `http://localhost:5000/api/products/update/${product._id}`,
+            `${API_BASE_URL}/api/products/update/${product._id}`,
 
             {
 
@@ -134,7 +141,7 @@ return (
 
                                 <img
 
-                                src={product.image}
+                                src={getImageUrl(product.image)}
 
                                 alt={product.name}
 
@@ -143,6 +150,10 @@ return (
                                 height="70"
 
                                 style={{objectFit:"cover"}}
+
+                                onError={(e) => {
+                                    e.target.src = "/no-image.png";
+                                }}
 
                                 />
 
