@@ -1,0 +1,35 @@
+# React Router (SPA) — serve index.html for any path that is not a real file or folder.
+# Without this, refreshing /product/some-slug or /blog returns 404 on Apache/LiteSpeed.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Never rewrite real files or directories (assets, sitemap.xml, robots.txt, uploads…)
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule . /index.html [L]
+</IfModule>
+
+# CRA fingerprints asset filenames, so they can be cached hard.
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/webp "access plus 6 months"
+    ExpiresByType image/png "access plus 6 months"
+    ExpiresByType image/jpeg "access plus 6 months"
+    ExpiresByType image/svg+xml "access plus 6 months"
+</IfModule>
+
+# index.html must never be cached, or users get a stale app after a deploy.
+<FilesMatch "index\.html$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </IfModule>
+</FilesMatch>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
