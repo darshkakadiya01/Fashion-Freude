@@ -119,10 +119,31 @@ Only touched the frontend? Redeploying the storefront app alone is enough.
 
 ---
 
-## Environment variable reference
+## Environment files
 
-Templates live in `server/.env.example` and `client/.env.example`. Locally you use `.env`
-files; in production these are set in the Hostinger panel instead.
+| File | Committed? | Used when |
+| --- | --- | --- |
+| `client/.env` | no | local dev (`npm start`) |
+| `client/.env.production` | **yes** (public URLs only) | `npm run build` — API origin + sitemap `SITE_URL` |
+| `server/.env` | no | local dev |
+| `server/.env.production` | no — **secrets** | when `NODE_ENV=production` |
+| `server/.env.production.example` | **yes** | template to copy |
+
+**How the server picks a file:** `server.js` loads `.env.<NODE_ENV>` when that file exists,
+otherwise `.env`. So with `NODE_ENV=production` it reads `.env.production`; locally it reads `.env`.
+
+**Precedence:** real environment variables always win — dotenv never overwrites them. That means
+values set in Hostinger's Web App panel override anything in a file, so on Hostinger you can set
+them in the panel and skip `server/.env.production` entirely.
+
+To use a file instead:
+```bash
+cp server/.env.production.example server/.env.production   # then fill in real values
+```
+
+**Client:** `client/.env.production` is the single source of truth for the API URL and the sitemap
+origin — it is read both by the React build and by `scripts/generate-sitemap.js`. A shell variable
+still overrides it, e.g. `REACT_APP_BASE_URL=http://localhost:5001 npm run build`.
 
 ---
 

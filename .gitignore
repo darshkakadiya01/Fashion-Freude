@@ -35,3 +35,6 @@ yarn-error.log*
 
 # generated at build time by client/scripts/generate-sitemap.js
 /client/public/sitemap.xml
+
+# production env with real secrets (template is .env.production.example)
+server/.env.production
