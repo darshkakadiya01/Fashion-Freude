@@ -22,7 +22,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "tw:build": "tailwindcss -i src/styles/tailwind.src.css -o src/styles/index.css --minify",
+    "tw:watch": "tailwindcss -i src/styles/tailwind.src.css -o src/styles/index.css --watch",
+    "prestart": "npm run tw:build",
+    "start": "concurrently -k -r -n tw,cra -c magenta,cyan \"npm run tw:watch\" \"react-scripts start\"",
+    "prebuild": "npm run tw:build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -44,5 +48,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.5.4",
+    "concurrently": "^9.2.4",
+    "postcss": "^8.5.22",
+    "tailwindcss": "^3.4.17"
   }
 }

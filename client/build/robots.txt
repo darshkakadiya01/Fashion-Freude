@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-
-# Block admin pages
-Disallow: /admin
-Disallow: /admin/
-
-# Sitemap
-Sitemap: https://fashionfreude.com/sitemap.xml

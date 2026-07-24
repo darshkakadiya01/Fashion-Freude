@@ -1,173 +1,137 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./Login.css";
+import { login } from "../api/auth";
 
 function Login() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-  const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-  const [user, setUser] = useState({
-    email: "",
-    password: ""
-  });
-
-  const handleChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value
+    const [user, setUser] = useState({
+        email: "",
+        password: "",
     });
-  };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+    const handleChange = (e) => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value,
+        });
+    };
 
-    if (!user.email || !user.password) {
-      alert("Please fill all fields");
-      return;
-    }
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-    try {
-      setLoading(true);
+        if (!user.email || !user.password) {
+            alert("Please fill all fields");
+            return;
+        }
 
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        user
-      );
+        try {
+            setLoading(true);
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+            const data = await login(user);
 
-      alert("Login Successful!");
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
 
-      if (res.data.user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
+            alert("Login Successful!");
 
-    } catch (error) {
-      alert(
-        error.response?.data?.message ||
-        "Invalid Email or Password"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+            if (data.user.role === "admin") {
+                navigate("/admin");
+            } else {
+                navigate("/");
+            }
+        } catch (error) {
+            alert(error.response?.data?.message || "Invalid Email or Password");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  return (
-    <div className="login-page">
+    return (
+        <div className="min-h-[80vh] grid place-items-center bg-cream px-4 py-12">
+            <div className="w-full max-w-md rounded-2xl border border-sand/70 bg-white shadow-card p-8">
+                <div className="text-center">
+                    <p className="eyebrow">Fashion Freude</p>
+                    <h2 className="mt-2 font-display text-4xl text-ink">Welcome Back</h2>
+                    <p className="mt-2 text-muted">Login to your Fashion Freude account</p>
+                </div>
 
-      <div className="login-card">
+                <form onSubmit={handleLogin} className="mt-8 space-y-5">
+                    <div>
+                        <label className="field-label">Email Address</label>
 
-        <div className="login-header">
+                        <input
+                            type="email"
+                            name="email"
+                            className="field"
+                            placeholder="Enter your email"
+                            value={user.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-          <h2>Welcome Back 👋</h2>
+                    <div>
+                        <label className="field-label">Password</label>
 
-          <p>Login to your Fashion Freude account</p>
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                className="field pr-16"
+                                placeholder="Enter your password"
+                                value={user.password}
+                                onChange={handleChange}
+                                required
+                            />
 
-        </div>
+                            <button
+                                type="button"
+                                className="absolute inset-y-0 right-3 my-auto h-6 text-sm font-medium text-gold hover:text-maroon"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? "Hide" : "Show"}
+                            </button>
+                        </div>
+                    </div>
 
-        <form onSubmit={handleLogin}>
+                    <div className="flex items-center justify-between text-sm">
+                        <label className="flex items-center gap-2 text-muted">
+                            <input type="checkbox" className="accent-maroon" />
+                            Remember Me
+                        </label>
 
-          <div className="input-group-custom">
+                        <Link to="/forgot-password" className="font-medium text-gold hover:text-maroon">
+                            Forgot Password?
+                        </Link>
+                    </div>
 
-            <label>Email Address</label>
+                    <button type="submit" className="btn-primary w-full" disabled={loading}>
+                        {loading ? "Logging In..." : "Login"}
+                    </button>
+                </form>
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={user.email}
-              onChange={handleChange}
-              required
-            />
+                <div className="my-6 flex items-center gap-4">
+                    <span className="h-px flex-1 bg-sand" />
+                    <span className="text-xs uppercase tracking-widest text-muted">OR</span>
+                    <span className="h-px flex-1 bg-sand" />
+                </div>
 
-          </div>
+                <button className="btn-outline w-full">Continue with Google</button>
 
-          <div className="input-group-custom">
-
-            <label>Password</label>
-
-            <div className="password-box">
-
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="Enter your password"
-                value={user.password}
-                onChange={handleChange}
-                required
-              />
-
-              <button
-                type="button"
-                className="show-btn"
-                onClick={() =>
-                  setShowPassword(!showPassword)
-                }
-              >
-                {showPassword ? "Hide" : "Show"}
-              </button>
-
+                <div className="mt-6 text-center text-sm text-muted">
+                    Don't have an account?{" "}
+                    <Link to="/register" className="font-medium text-gold hover:text-maroon">
+                        Register Now
+                    </Link>
+                </div>
             </div>
-
-          </div>
-
-          <div className="login-options">
-
-            <label>
-
-              <input type="checkbox" />
-
-              Remember Me
-
-            </label>
-
-            <Link to="/forgot-password">
-              Forgot Password?
-            </Link>
-
-          </div>
-
-          <button
-            type="submit"
-            className="login-btn"
-            disabled={loading}
-          >
-            {loading ? "Logging In..." : "Login"}
-          </button>
-
-        </form>
-
-        <div className="divider">
-
-          <span>OR</span>
-
         </div>
-
-        <button className="google-btn">
-          Continue with Google
-        </button>
-
-        <div className="register-link">
-
-          Don't have an account?
-
-          <Link to="/register">
-            Register Now
-          </Link>
-
-        </div>
-
-      </div>
-
-    </div>
-  );
+    );
 }
 
 export default Login;

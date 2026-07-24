@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Blogs.css";
+import ZariDivider from "../components/ZariDivider";
 
 // Blog Images
 import SareeImg from "./images/TBS-0067_823x-1-700x385.webp";
@@ -25,7 +25,6 @@ import TshirtImg from "./images/c21f230f-6aea-4237-8440-72920ec04b99171326206406
 import PantImg from "./images/straightleg-ponte-pants-navy-107-Model-1.webp";
 
 export const blogs = [
-
     {
         id: 1,
         image: SareeImg,
@@ -231,130 +230,111 @@ export const blogs = [
         date: "July 20, 2026",
         category: "Fashion",
         description:
-        "Discover the latest women’s t-shirt styles and trends in 2025 including oversized tees, graphic t-shirts, crop tops, polo shirts, sustainable cotton tees, and modern fashion ideas.",
+            "Discover the latest women’s t-shirt styles and trends in 2025 including oversized tees, graphic t-shirts, crop tops, polo shirts, sustainable cotton tees, and modern fashion ideas.",
         link: "/best-t-shirt",
     },
 
     {
-        id:19,
-        image:PantImg,
-        title:"Women’s Best Pant Styles & Trends in 2025",
-        date:"July 20, 2026",
-        category:"Fashion",
+        id: 19,
+        image: PantImg,
+        title: "Women’s Best Pant Styles & Trends in 2025",
+        date: "July 20, 2026",
+        category: "Fashion",
         description:
-        "Explore the latest women's pant styles and trends in 2025 including wide-leg pants, cargo pants, straight-leg trousers, co-ord sets, sustainable pants, and modern fashion ideas.",
-        link:"/best-pant",
+            "Explore the latest women's pant styles and trends in 2025 including wide-leg pants, cargo pants, straight-leg trousers, co-ord sets, sustainable pants, and modern fashion ideas.",
+        link: "/best-pant",
     },
-
 ];
 
 function Blogs() {
-
     return (
-
         <>
-        <title>Fashion & Beauty Blogs | Fashion Freude</title>
-        <meta name="title" content="Fashion & Beauty Blogs | Fashion Freude" />
-        <meta name="description" content="Explore the latest articles on women's fashion, beauty tips, hair styles, footwear trends, nail art inspiration, and makeup guides at Fashion Freude." />
-        <meta name="keywords" content="fashion blog, beauty trends, makeup guides, women hairstyles, footwear trends, Fashion Freude blogs" />
-        <meta name="robots" content="index, follow" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://fashionfreude.com/blogs" />
+            <title>Fashion & Beauty Blogs | Fashion Freude</title>
+            <meta name="title" content="Fashion & Beauty Blogs | Fashion Freude" />
+            <meta
+                name="description"
+                content="Explore the latest articles on women's fashion, beauty tips, hair styles, footwear trends, nail art inspiration, and makeup guides at Fashion Freude."
+            />
+            <meta
+                name="keywords"
+                content="fashion blog, beauty trends, makeup guides, women hairstyles, footwear trends, Fashion Freude blogs"
+            />
+            <meta name="robots" content="index, follow" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link rel="canonical" href="https://fashionfreude.com/blogs" />
 
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://fashionfreude.com/blogs" />
-        <meta property="og:title" content="Fashion & Beauty Blogs | Fashion Freude" />
-        <meta property="og:description" content="Explore the latest articles on women's fashion, beauty tips, hair styles, footwear trends, nail art inspiration, and makeup guides." />
-        <meta property="og:image" content="https://fashionfreude.com/logo.png" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://fashionfreude.com/blogs" />
+            <meta property="og:title" content="Fashion & Beauty Blogs | Fashion Freude" />
+            <meta
+                property="og:description"
+                content="Explore the latest articles on women's fashion, beauty tips, hair styles, footwear trends, nail art inspiration, and makeup guides."
+            />
+            <meta property="og:image" content="https://fashionfreude.com/logo.png" />
 
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:url" content="https://fashionfreude.com/blogs" />
-        <meta name="twitter:title" content="Fashion & Beauty Blogs | Fashion Freude" />
-        <meta name="twitter:description" content="Explore the latest articles on women's fashion, beauty tips, hair styles, footwear trends, nail art inspiration, and makeup guides." />
-        <meta name="twitter:image" content="https://fashionfreude.com/logo.png" />
-        
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:url" content="https://fashionfreude.com/blogs" />
+            <meta name="twitter:title" content="Fashion & Beauty Blogs | Fashion Freude" />
+            <meta
+                name="twitter:description"
+                content="Explore the latest articles on women's fashion, beauty tips, hair styles, footwear trends, nail art inspiration, and makeup guides."
+            />
+            <meta name="twitter:image" content="https://fashionfreude.com/logo.png" />
 
-        <section className="blogs-page">
+            <main className="bg-ivory">
+                <header className="border-b border-sand bg-cream">
+                    <div className="container-luxe py-16 text-center sm:py-20">
+                        <p className="eyebrow">The Journal</p>
+                        <h1 className="mt-3 font-display text-4xl leading-tight text-ink sm:text-5xl lg:text-6xl">
+                            Latest Fashion &amp; Beauty Articles
+                        </h1>
+                        <ZariDivider className="mt-6" />
+                        <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+                            Stay updated with the latest women's fashion, beauty tips, hairstyles,
+                            footwear trends, nail art inspiration, and styling ideas.
+                        </p>
+                    </div>
+                </header>
 
-            <div className="container">
-
-                <div className="section-title">
-
-                    <span>OUR BLOGS</span>
-
-                    <h2>Latest Fashion & Beauty Articles</h2>
-
-                    <p>
-                        Stay updated with the latest women's fashion,
-                        beauty tips, hairstyles, footwear trends,
-                        nail art inspiration, and styling ideas.
-                    </p>
-
-                </div>
-
-                <div className="blogs-grid">
-
-                    {blogs.map((blog) => (
-
-                        <div
-                            className="blog-card"
-                            key={blog.id}
-                        >
-
-                            <div className="blog-image">
-
-                                <img
-                                    src={blog.image}
-                                    alt={blog.title}
-                                />
-
-                            </div>
-
-                            <div className="blog-content">
-
-                                <div className="blog-info">
-
-                                    <span>{blog.category}</span>
-
-                                    <span>{blog.date}</span>
-
+                <section className="container-luxe py-16 sm:py-20">
+                    <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+                        {blogs.map((blog) => (
+                            <Link
+                                to={blog.link}
+                                key={blog.id}
+                                className="group flex flex-col overflow-hidden rounded-2xl border border-sand bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                            >
+                                <div className="overflow-hidden">
+                                    <img
+                                        src={blog.image}
+                                        alt={blog.title}
+                                        loading="lazy"
+                                        className="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-105"
+                                    />
                                 </div>
 
-                                <h3>
-
-                                    {blog.title}
-
-                                </h3>
-
-                                <p>
-
-                                    {blog.description}
-
-                                </p>
-
-                                <Link
-                                    to={blog.link}
-                                    className="blog-btn"
-                                >
-
-                                    Continue Reading →
-
-                                </Link>
-
-                            </div>
-
-                        </div>
-
-                    ))}
-
-                </div>
-
-            </div>
-
-        </section>
-</>
+                                <div className="flex flex-1 flex-col p-6">
+                                    <p className="eyebrow text-gold">{blog.category}</p>
+                                    <h3 className="mt-3 font-display text-2xl leading-snug text-ink transition-colors group-hover:text-maroon">
+                                        {blog.title}
+                                    </h3>
+                                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
+                                        {blog.description}
+                                    </p>
+                                    <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium tracking-wide text-gold">
+                                        Continue reading
+                                        <span className="transition-transform duration-300 group-hover:translate-x-1">
+                                            →
+                                        </span>
+                                    </span>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+            </main>
+        </>
     );
-
 }
 
 export default Blogs;

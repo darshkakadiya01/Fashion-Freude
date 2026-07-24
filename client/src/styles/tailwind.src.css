@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-ivory text-ink font-sans antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-display;
+    }
+
+    ::selection {
+        @apply bg-gold/30 text-ink;
+    }
+
+    /* Gold focus ring for keyboard users */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+        @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-ivory;
+    }
+}
+
+@layer components {
+    .container-luxe {
+        @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+    }
+
+    /* Gold uppercase label — the couture eyebrow */
+    .eyebrow {
+        @apply font-sans text-xs font-medium uppercase tracking-luxe text-gold;
+    }
+
+    /* Buttons */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-medium tracking-wide transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60;
+    }
+    .btn-primary {
+        @apply btn bg-maroon text-ivory hover:bg-maroon-dark hover:shadow-soft;
+    }
+    .btn-gold {
+        @apply btn bg-gold text-ink hover:bg-gold-soft hover:shadow-gold;
+    }
+    .btn-outline {
+        @apply btn border border-maroon/40 bg-transparent text-maroon hover:border-maroon hover:bg-maroon hover:text-ivory;
+    }
+    .btn-ghost {
+        @apply btn text-ink hover:text-maroon;
+    }
+
+    /* Surfaces */
+    .card {
+        @apply rounded-2xl border border-sand/70 bg-white/70 shadow-card backdrop-blur-sm;
+    }
+
+    /* Form controls */
+    .field {
+        @apply w-full rounded-xl border border-sand bg-white px-4 py-3 text-sm text-ink placeholder:text-muted/60 transition focus:border-gold;
+    }
+    .field-label {
+        @apply mb-1.5 block font-sans text-xs font-medium uppercase tracking-widest text-muted;
+    }
+
+    /* Chip / badge */
+    .chip {
+        @apply inline-flex items-center rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-medium uppercase tracking-widest text-maroon;
+    }
+}
+
+@layer utilities {
+    .hairline-gold {
+        @apply border-gold/30;
+    }
+}

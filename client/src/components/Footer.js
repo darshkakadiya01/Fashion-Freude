@@ -1,310 +1,159 @@
 import { Link } from "react-router-dom";
-import "./Footer.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { FaFacebookF, FaInstagram, FaXTwitter, FaLinkedinIn, FaYoutube } from "react-icons/fa6";
+import { getCategories } from "../api/categories";
+import ZariDivider from "./ZariDivider";
+
+const socials = [
+    { icon: FaFacebookF, href: "https://www.facebook.com/", label: "Facebook" },
+    { icon: FaInstagram, href: "https://www.instagram.com/", label: "Instagram" },
+    { icon: FaXTwitter, href: "https://x.com/", label: "X" },
+    { icon: FaLinkedinIn, href: "https://www.linkedin.com/", label: "LinkedIn" },
+    { icon: FaYoutube, href: "https://www.youtube.com/", label: "YouTube" },
+];
+
+const quickLinks = [
+    { to: "/", label: "Home" },
+    { to: "/cart", label: "Cart" },
+    { to: "/blog", label: "Blog" },
+    { to: "/about-us", label: "About Us" },
+    { to: "/privacy-policy", label: "Privacy Policy" },
+    { to: "/refund_returns", label: "Returns" },
+    { to: "/terms-and-condition", label: "Terms & Conditions" },
+    { to: "/contact-us", label: "Contact Us" },
+];
 
 function Footer() {
     const [categories, setCategories] = useState([]);
 
-useEffect(() => {
-    getCategories();
-}, []);
-
-const getCategories = async () => {
-    try {
-
-        const res = await axios.get(
-            "http://localhost:5000/api/categories"
-        );
-
-        setCategories(res.data);
-
-    } catch (error) {
-
-        console.log(error);
-
-    }
-};
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const data = await getCategories();
+                setCategories(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchCategories();
+    }, []);
 
     return (
-
-        <footer className="footer">
-
-            <div className="container">
-
-                <div className="row">
-
-                    {/* Company */}
-
-                    <div className="col-lg-4 col-md-6 mb-4">
-
-                        <h2 className="footer-logo">
-
-                            🛍️ Fashion Freude
-
+        <footer className="bg-maroon-dark text-ivory/80">
+            <div className="container-luxe py-16">
+                <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.5fr]">
+                    {/* Brand */}
+                    <div>
+                        <h2 className="font-display text-3xl font-semibold text-ivory">
+                            Fashion <span className="text-gold">Freude</span>
                         </h2>
-
-                        <p className="footer-text">
-
-                            Fashion Freude is your trusted online shopping
-                            destination for Electronics, Fashion,
-                            Accessories, Home Essentials and much more.
-
-                            We deliver premium quality products at the
-                            best prices with fast delivery.
-
+                        <p className="mt-4 max-w-sm text-sm leading-relaxed text-ivory/70">
+                            A curated house of Indian ethnic wear — sarees, lehengas, kurtis and
+                            salwar suits crafted for the moments that matter. Timeless pieces,
+                            delivered with care.
                         </p>
-
-                        <div className="social-icons">
-
-                            <a href="https://www.facebook.com/">
-                                <i className="bi bi-facebook"></i>
-                            </a>
-
-                            <a href="https://www.instagram.com/">
-                                <i className="bi bi-instagram"></i>
-                            </a>
-
-                            <a href="https://x.com/">
-                                <i className="bi bi-twitter-x"></i>
-                            </a>
-
-                            <a href="https://www.linkedin.com/">
-                                <i className="bi bi-linkedin"></i>
-                            </a>
-
-                            <a href="https://www.youtube.com/">
-                                <i className="bi bi-youtube"></i>
-                            </a>
-
+                        <div className="mt-6 flex gap-3">
+                            {socials.map(({ icon: Icon, href, label }) => (
+                                <a
+                                    key={label}
+                                    href={href}
+                                    aria-label={label}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="flex h-9 w-9 items-center justify-center rounded-full border border-ivory/20 text-ivory/80 transition-all hover:border-gold hover:bg-gold hover:text-maroon-dark"
+                                >
+                                    <Icon className="h-4 w-4" />
+                                </a>
+                            ))}
                         </div>
-
                     </div>
 
                     {/* Quick Links */}
-
-                    <div className="col-lg-2 col-md-6 mb-4">
-
-                        <h4>
-
-                            Quick Links
-
-                        </h4>
-
-                        <ul className="footer-links">
-
-                            <li>
-
-                                <Link to="/">
-                                    Home
-                                </Link>
-
-                            </li>
-
-                            <li>
-
-                                <Link to="/cart">
-                                    Cart
-                                </Link>
-
-                            </li>
-
-                            <li>
-
-                                <Link to="/blog">
-                                    Blog
-                                </Link>
-
-                            </li>
-
-                            <li>
-
-                                <Link to="/about-us">
-                                    About Us
-                                </Link>
-
-                            </li>
-
-                            <li>
-
-                                <Link to="/privacy-policy">
-                                    Privacy Policy
-                                </Link>
-
-                            </li>
-
-                            <li>
-
-                                <Link to="/refund_returns">
-                                    Returns
-                                </Link>
-
-                            </li>
-
-                            <li>
-
-                                <Link to="/terms-and-condition">
-                                    Terms & Conditions
-                                </Link>
-
-                            </li>
-
-                            <li>
-
-                                <Link to="/contact-us">
-                                    Contact Us
-                                </Link>
-
-                            </li>
-
-                            
-
-                            {/* <li>
-
-                                <Link to="/login">
-                                    Login
-                                </Link>
-
-                            </li> */}
-
+                    <div>
+                        <h4 className="eyebrow mb-5 text-gold">Explore</h4>
+                        <ul className="space-y-2.5 text-sm">
+                            {quickLinks.map((link) => (
+                                <li key={link.to + link.label}>
+                                    <Link
+                                        to={link.to}
+                                        className="text-ivory/70 transition-colors hover:text-gold"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
-
                     </div>
 
                     {/* Categories */}
-
-                    <div className="col-lg-2 col-md-6 mb-4">
-
-                        <h4>
-                            Categories
-                        </h4>
-
-                        <ul className="footer-links">
-
-                            {
-                                categories.length > 0 ? (
-
-                                    categories.map((category) => (
-
-                                        <li key={category._id}>
-
-                                            <Link
-                                                to={`/category/${encodeURIComponent(category.name)}`}
-                                            >
-                                                {category.name}
-                                            </Link>
-
-                                        </li>
-
-                                    ))
-
-                                ) : (
-
-                                    <li>
-
-                                        <span>No Categories</span>
-
+                    <div>
+                        <h4 className="eyebrow mb-5 text-gold">Shop</h4>
+                        <ul className="space-y-2.5 text-sm">
+                            {categories.length > 0 ? (
+                                categories.map((category) => (
+                                    <li key={category.id}>
+                                        <Link
+                                            to={`/category/${encodeURIComponent(category.name)}`}
+                                            className="text-ivory/70 transition-colors hover:text-gold"
+                                        >
+                                            {category.name}
+                                        </Link>
                                     </li>
-
-                                )
-                            }
-
+                                ))
+                            ) : (
+                                <li className="text-ivory/50">No categories</li>
+                            )}
                         </ul>
-
                     </div>
 
                     {/* Contact */}
+                    <div>
+                        <h4 className="eyebrow mb-5 text-gold">Visit Us</h4>
+                        <ul className="space-y-3 text-sm text-ivory/70">
+                            <li>Surat, Gujarat, India</li>
+                            <li>
+                                <a
+                                    href="mailto:fashionfreude@gmail.com"
+                                    className="transition-colors hover:text-gold"
+                                >
+                                    fashionfreude@gmail.com
+                                </a>
+                            </li>
+                            <li>+91 00000 00000</li>
+                            <li>Mon – Sat · 9 AM – 8 PM</li>
+                        </ul>
 
-                    <div className="col-lg-4 col-md-6 mb-4">
-
-                        <h4>
-
-                            Contact Us
-
-                        </h4>
-
-                        <p>
-
-                            <i className="bi bi-geo-alt-fill me-2"></i>
-
-                            Surat, Gujarat, India
-
-                        </p>
-
-                        <p>
-
-                            <i className="bi bi-envelope-fill me-2"></i>
-
-                            fashionfreude@gmail.com
-
-                        </p>
-
-                        <p>
-
-                            <i className="bi bi-telephone-fill me-2"></i>
-
-                            +91 00000 00000
-
-                        </p>
-
-                        <p>
-
-                            <i className="bi bi-clock-fill me-2"></i>
-
-                            Mon - Sat : 9 AM - 8 PM
-
-                        </p>
-
-                        {/* Newsletter */}
-
-                        <div className="subscribe-box">
-                        <form className="subscribe-form">
+                        <form
+                            className="mt-5 flex overflow-hidden rounded-full border border-ivory/20 bg-ivory/5"
+                            onSubmit={(e) => e.preventDefault()}
+                        >
                             <input
-                            type="email"
-                            placeholder="Enter your email"
+                                type="email"
+                                placeholder="Email for offers"
+                                className="w-full bg-transparent px-4 py-2.5 text-sm text-ivory placeholder:text-ivory/40 focus:outline-none"
                             />
-
-                            <button type="submit">
-                            Subscribe
+                            <button
+                                type="submit"
+                                className="bg-gold px-5 text-sm font-medium text-maroon-dark transition-colors hover:bg-gold-soft"
+                            >
+                                Join
                             </button>
                         </form>
-                        </div>
-
                     </div>
-
                 </div>
 
-                <hr className="footer-line" />
+                <ZariDivider className="my-10" width="w-24" />
 
-                <div className="footer-bottom">
-
-                    <div>
-
-                        © {new Date().getFullYear()} Fashion Freude.
-                        All Rights Reserved.
-
-                    </div>
-
-                    <div>
-
-                        Designed & Developed by
-
-                        <span className="developer">
-
-                            Darsh Kakadiya
-
-                        </span>
-
-                    </div>
-
+                <div className="flex flex-col items-center justify-between gap-3 text-xs text-ivory/50 sm:flex-row">
+                    <p>© {new Date().getFullYear()} Fashion Freude. All rights reserved.</p>
+                    {/* <p>
+                        Designed &amp; developed by{" "}
+                        <span className="text-gold">Darsh Kakadiya</span>
+                    </p> */}
                 </div>
-
             </div>
-
         </footer>
-
     );
-
 }
 
 export default Footer;

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { getProduct } from "../api/products";
+import { getImageUrl } from "../config";
 import { useCart } from "../context/CartContext";
-import "./ProductDetails.css";
+import ZariDivider from "../components/ZariDivider";
 
 function ProductDetails() {
-
-    const API_BASE_URL = (process.env.REACT_APP_BASE_URL || process.env.BASE_URL || "http://localhost:5000").replace(/\/$/, "");
     const { slug } = useParams();
 
     const navigate = useNavigate();
@@ -22,183 +21,120 @@ function ProductDetails() {
 
     const [selectedImage, setSelectedImage] = useState("");
 
-    const getImageUrl = (img) => {
-        if (!img || typeof img !== "string") return "/no-image.png";
-
-        if (img.startsWith("http")) return img;
-
-        const normalized = img
-            .replace(/\\/g, "/")
-            .replace(/^\/+/, "")
-            .replace(/^uploads\//i, "");
-
-        return `${API_BASE_URL}/uploads/${normalized}`;
-    };
+    useEffect(() => {
+        if (product) {
+            setSelectedImage(getImageUrl(product.image));
+        }
+    }, [product]);
 
     useEffect(() => {
-    if (product) {
-        setSelectedImage(getImageUrl(product.image));
-    }
-}, [product]);
+        const fetchProduct = async () => {
+            try {
+                const data = await getProduct(slug);
 
+                setProduct(data);
 
-useEffect(() => {
+                if (data.image) {
+                    setSelectedImage(getImageUrl(data.image));
+                }
 
-const getProduct = async () => {
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
 
-    try {
+                setLoading(false);
+            }
+        };
 
-        const res = await axios.get(
-            `${API_BASE_URL}/api/products/${slug}`
-        );
-
-        setProduct(res.data);
-
-        if (res.data.image) {
-
-            setSelectedImage(getImageUrl(res.data.image));
-
-        }
-
-        setLoading(false);
-
-    } catch (error) {
-
-        console.log(error);
-
-        setLoading(false);
-
-    }
-
-};
-
-    getProduct();
-
-}, [slug]);
+        fetchProduct();
+    }, [slug]);
 
     const increaseQty = () => {
-
         setQuantity(quantity + 1);
-
     };
 
     const decreaseQty = () => {
-
         if (quantity > 1) {
-
             setQuantity(quantity - 1);
-
         }
-
     };
     const handleAddToCart = () => {
-
         for (let i = 0; i < quantity; i++) {
-
             addToCart(product);
-
         }
 
         navigate("/cart");
-
     };
 
     if (loading) {
-
         return (
-
-            <div className="product-loading">
-
-                <h2>Loading Product...</h2>
-
+            <div className="container-luxe py-24 text-center">
+                <h2 className="font-display text-3xl text-muted">Loading Product...</h2>
             </div>
-
         );
-
     }
 
     if (!product) {
-
         return (
+            <div className="container-luxe py-24 text-center">
+                <h2 className="font-display text-4xl text-ink">Product Not Found</h2>
 
-            <div className="product-loading">
-
-                <h2>Product Not Found</h2>
-
-                <Link
-                    to="/"
-                    className="back-home-btn"
-                >
+                <Link to="/" className="btn-primary mt-6 inline-flex">
                     Back Home
                 </Link>
-
             </div>
-
         );
-
     }
 
     const oldPrice = Math.round(product.price * 1.25);
 
-    const discount = Math.round(
-        ((oldPrice - product.price) / oldPrice) * 100
-    );
+    const discount = Math.round(((oldPrice - product.price) / oldPrice) * 100);
 
     const rawGallery = Array.isArray(product?.gallery)
         ? product.gallery
         : typeof product?.gallery === "string"
-            ? JSON.parse(product.gallery)
-            : [];
+          ? JSON.parse(product.gallery)
+          : [];
 
     const allImages = product
-    ? [
-          product.image,
-          ...rawGallery
-      ].filter(Boolean).map((img) => getImageUrl(img))
-    : [];
+        ? [product.image, ...rawGallery].filter(Boolean).map((img) => getImageUrl(img))
+        : [];
 
-const showPrevImage = () => {
+    const showPrevImage = () => {
+        if (allImages.length === 0) return;
 
-    if (allImages.length === 0) return;
+        const index = allImages.indexOf(selectedImage);
 
-    const index = allImages.indexOf(selectedImage);
+        if (index <= 0) {
+            setSelectedImage(allImages[allImages.length - 1]);
+        } else {
+            setSelectedImage(allImages[index - 1]);
+        }
+    };
 
-    if (index <= 0) {
+    const showNextImage = () => {
+        if (allImages.length === 0) return;
 
-        setSelectedImage(allImages[allImages.length - 1]);
+        const index = allImages.indexOf(selectedImage);
 
-    } else {
-
-        setSelectedImage(allImages[index - 1]);
-
-    }
-
-};
-
-const showNextImage = () => {
-
-    if (allImages.length === 0) return;
-
-    const index = allImages.indexOf(selectedImage);
-
-    if (index === allImages.length - 1) {
-
-        setSelectedImage(allImages[0]);
-
-    } else {
-
-        setSelectedImage(allImages[index + 1]);
-
-    }
-
-};
+        if (index === allImages.length - 1) {
+            setSelectedImage(allImages[0]);
+        } else {
+            setSelectedImage(allImages[index + 1]);
+        }
+    };
     return (
-
         <>
             <title>Fashion Freude</title>
             <meta name="title" content="Buy {product.name} Online | Fashion Freude" />
-            <meta name="description" content="Shop {product.name} for ₹{product.price} at Fashion Freude. Discover high-quality {product.category} with free shipping, secure payment, and easy 7-day returns." />
-            <meta name="keywords" content="{product.name}, buy {product.name}, {product.category}, Fashion Freude, ethnic wear online, latest {product.category} collection" />
+            <meta
+                name="description"
+                content="Shop {product.name} for ₹{product.price} at Fashion Freude. Discover high-quality {product.category} with free shipping, secure payment, and easy 7-day returns."
+            />
+            <meta
+                name="keywords"
+                content="{product.name}, buy {product.name}, {product.category}, Fashion Freude, ethnic wear online, latest {product.category} collection"
+            />
             <meta name="robots" content="index, follow" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <link rel="canonical" href="https://fashionfreude.com/product/{slug}" />
@@ -206,7 +142,10 @@ const showNextImage = () => {
             <meta property="og:type" content="product" />
             <meta property="og:url" content="https://fashionfreude.com/product/{slug}" />
             <meta property="og:title" content="{product.name} | Fashion Freude" />
-            <meta property="og:description" content="Buy {product.name} for ₹{product.price}. Premium quality {product.category} with fast shipping and easy returns." />
+            <meta
+                property="og:description"
+                content="Buy {product.name} for ₹{product.price}. Premium quality {product.category} with fast shipping and easy returns."
+            />
             <meta property="og:image" content="{selectedImage}" />
             <meta property="product:price:amount" content="{product.price}" />
             <meta property="product:price:currency" content="INR" />
@@ -214,450 +153,269 @@ const showNextImage = () => {
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:url" content="https://fashionfreude.com/product/{slug}" />
             <meta name="twitter:title" content="{product.name} | Fashion Freude" />
-            <meta name="twitter:description" content="Buy {product.name} for ₹{product.price}. Premium quality {product.category} with fast shipping and easy returns." />
-            <meta name="twitter:image" content="{selectedImage}" />
-        
-
-        <section className="product-details-page">
-
-            <div className="container">
-
-                <div className="product-details-card">
-
-                    {/* LEFT SIDE */}
-
-                    <div className="product-image-section">
-
-                        <div className="discount-badge">
-
-                            {discount}% OFF
-
-                        </div>
-                        <div className="product-images">
-
-    <div className="main-image-box">
-
-        <img
-            src={selectedImage || getImageUrl(product.image)}
-            alt={product.name}
-            onError={(e) => {
-                e.target.src = "/no-image.png";
-            }}
-        />
-
-    </div>
-
-    <div className="thumbnail-row">
-
-        <button
-            className="image-arrow"
-            onClick={showPrevImage}
-        >
-            ❮
-        </button>
-
-        {allImages.map((img, index) => (
-
-            <img
-                key={index}
-                src={img}
-                alt=""
-                className={
-                    selectedImage === img
-                        ? "thumbnail active"
-                        : "thumbnail"
-                }
-                onClick={() => setSelectedImage(img)}
+            <meta
+                name="twitter:description"
+                content="Buy {product.name} for ₹{product.price}. Premium quality {product.category} with fast shipping and easy returns."
             />
+            <meta name="twitter:image" content="{selectedImage}" />
 
-        ))}
+            <section className="bg-ivory">
+                <div className="container-luxe py-12 lg:py-16">
+                    <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+                        {/* LEFT SIDE */}
 
-        <button
-            className="image-arrow"
-            onClick={showNextImage}
-        >
-            ❯
-        </button>
-
-    </div>
-
-</div>
-
-                    </div>
-
-                    {/* RIGHT SIDE */}
-
-                    <div className="product-info-section">
-
-                        <span className="product-category">
-
-                            {product.category}
-
-                        </span>
-
-                        <h1>
-
-                            {product.name}
-
-                        </h1>
-
-                        <div className="rating-row">
-
-                            ⭐⭐⭐⭐⭐
-
-                            <span>
-
-                                (4.8 Reviews)
-
-                            </span>
-
-                        </div>
-
-                        <div className="price-row">
-
-                            <h2>
-
-                                ₹ {product.price}
-
-                            </h2>
-
-                            <del>
-
-                                ₹ {oldPrice}
-
-                            </del>
-
-                        </div>
-
-                        <div className="stock-box">
-
-                            {product.stock > 0
-                                ? "✅ In Stock"
-                                : "❌ Out of Stock"}
-
-                        </div>
-
-                        <div className="delivery-box">
-
-                            🚚 Free Delivery
-
-                            <br />
-
-                            🔒 Secure Payment
-
-                            <br />
-
-                            ↩️ Easy Return
-
-                        </div>
-                                                {/* Quantity */}
-
-                        <div className="quantity-wrapper">
-
-                            <h5>Quantity</h5>
-
-                            <div className="quantity-box">
-
-                                <button
-                                    onClick={decreaseQty}
-                                >
-                                    −
-                                </button>
-
-                                <span>
-
-                                    {quantity}
-
-                                </span>
-
-                                <button
-                                    onClick={increaseQty}
-                                >
-                                    +
-
-                                </button>
-
+                        <div className="min-w-0">
+                            <div className="relative overflow-hidden rounded-2xl border border-sand/70 bg-white shadow-card">
+                                <div className="absolute left-4 top-4 z-10 rounded-full bg-maroon px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+                                    {discount}% OFF
+                                </div>
+                                <div className="aspect-[4/5] w-full">
+                                    <img
+                                        src={selectedImage || getImageUrl(product.image)}
+                                        alt={product.name}
+                                        className="h-full w-full object-cover"
+                                        onError={(e) => {
+                                            e.target.src = "/no-image.png";
+                                        }}
+                                    />
+                                </div>
                             </div>
 
+                            <div className="mt-4 flex items-center gap-3">
+                                <button
+                                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-sand bg-white text-maroon transition hover:bg-cream"
+                                    onClick={showPrevImage}
+                                >
+                                    ❮
+                                </button>
+
+                                <div className="flex min-w-0 flex-1 gap-3 overflow-x-auto py-1">
+                                    {allImages.map((img, index) => (
+                                        <img
+                                            key={index}
+                                            src={img}
+                                            alt=""
+                                            className={
+                                                selectedImage === img
+                                                    ? "h-20 w-20 shrink-0 cursor-pointer rounded-xl border-2 border-gold object-cover"
+                                                    : "h-20 w-20 shrink-0 cursor-pointer rounded-xl border border-sand object-cover opacity-80 transition hover:opacity-100"
+                                            }
+                                            onClick={() => setSelectedImage(img)}
+                                        />
+                                    ))}
+                                </div>
+
+                                <button
+                                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-sand bg-white text-maroon transition hover:bg-cream"
+                                    onClick={showNextImage}
+                                >
+                                    ❯
+                                </button>
+                            </div>
                         </div>
 
-                        {/* Buttons */}
+                        {/* RIGHT SIDE */}
 
-                        <div className="product-buttons">
+                        <div className="min-w-0">
+                            <span className="chip">{product.category}</span>
 
-                            <button
-                                className="add-cart-btn"
-                                onClick={handleAddToCart}
-                            >
+                            <h1 className="mt-4 font-display text-4xl text-ink sm:text-5xl">
+                                {product.name}
+                            </h1>
 
-                                🛒 Add To Cart
+                            <div className="mt-3 flex items-center gap-2 text-sm text-muted">
+                                <span className="text-gold">★★★★★</span>
+                                <span>(4.8 Reviews)</span>
+                            </div>
 
-                            </button>
-
-                            <Link
-                                to="/checkout"
-                                className="buy-now-btn"
-                                onClick={handleAddToCart}
-                            >
-
-                                ⚡ Buy Now
-
-                            </Link>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                {/* Description */}
-
-                <div className="product-extra-card">
-
-                    <h3>
-
-                        Product Description
-
-                    </h3>
-
-                    <p>
-
-                        {product.description}
-
-                    </p>
-
-                </div>
-
-                {/* Specifications */}
-
-                <div className="product-extra-card">
-
-                    <h3>
-
-                        Specifications
-
-                    </h3>
-
-                    <table className="spec-table">
-
-                        <tbody>
-
-                            <tr>
-
-                                <td>
-
-                                    Product Name
-
-                                </td>
-
-                                <td>
-
-                                    {product.name}
-
-                                </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-
-                                    Category
-
-                                </td>
-
-                                <td>
-
-                                    {product.category}
-
-                                </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-
-                                    Price
-
-                                </td>
-
-                                <td>
-
+                            <div className="mt-5 flex items-end gap-3">
+                                <span className="font-display text-4xl text-maroon">
                                     ₹ {product.price}
+                                </span>
 
-                                </td>
+                                <del className="font-display text-xl text-muted">₹ {oldPrice}</del>
+                            </div>
 
-                            </tr>
+                            <div className="mt-5">
+                                <span
+                                    className={
+                                        product.stock > 0
+                                            ? "inline-flex items-center gap-2 rounded-full bg-cream px-4 py-1.5 text-sm font-medium text-maroon"
+                                            : "inline-flex items-center gap-2 rounded-full bg-sand px-4 py-1.5 text-sm font-medium text-muted"
+                                    }
+                                >
+                                    {product.stock > 0 ? "In Stock" : "Out of Stock"}
+                                </span>
+                            </div>
 
-                            <tr>
+                            <ul className="mt-6 space-y-2 text-sm text-ink">
+                                <li className="flex items-center gap-3">
+                                    <span className="text-gold">🚚</span> Free Delivery
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <span className="text-gold">🔒</span> Secure Payment
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <span className="text-gold">↩️</span> Easy Return
+                                </li>
+                            </ul>
 
-                                <td>
+                            {/* Quantity */}
 
-                                    Stock
+                            <div className="mt-8">
+                                <h5 className="field-label">Quantity</h5>
 
-                                </td>
+                                <div className="mt-2 inline-flex items-center gap-4 rounded-full border border-sand bg-white px-2 py-1">
+                                    <button
+                                        onClick={decreaseQty}
+                                        className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-maroon transition hover:bg-cream"
+                                    >
+                                        −
+                                    </button>
 
-                                <td>
+                                    <span className="w-6 text-center font-display text-xl text-ink">
+                                        {quantity}
+                                    </span>
 
-                                    {product.stock}
+                                    <button
+                                        onClick={increaseQty}
+                                        className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-maroon transition hover:bg-cream"
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
 
-                                </td>
+                            {/* Buttons */}
 
-                            </tr>
+                            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                                <button
+                                    className="btn-primary flex-1 justify-center"
+                                    onClick={handleAddToCart}
+                                >
+                                    🛒 Add To Cart
+                                </button>
 
-                            <tr>
-
-                                <td>
-
-                                    Availability
-
-                                </td>
-
-                                <td>
-
-                                    {product.stock > 0
-                                        ? "In Stock"
-                                        : "Out of Stock"}
-
-                                </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-
-                                    Delivery
-
-                                </td>
-
-                                <td>
-
-                                    Free Delivery Available
-
-                                </td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td>
-
-                                    Payment
-
-                                </td>
-
-                                <td>
-
-                                    Cash on Delivery / Online
-
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-                {/* Features */}
-
-                <div className="product-extra-card">
-
-                    <h3>
-
-                        Why Shop With Us?
-
-                    </h3>
-
-                    <div className="features-grid">
-
-                        <div className="feature-item">
-
-                            🚚
-
-                            <h5>
-
-                                Free Shipping
-
-                            </h5>
-
-                            <p>
-
-                                Free delivery on eligible orders.
-
-                            </p>
-
+                                <Link
+                                    to="/checkout"
+                                    className="btn-gold flex-1 justify-center"
+                                    onClick={handleAddToCart}
+                                >
+                                    ⚡ Buy Now
+                                </Link>
+                            </div>
                         </div>
-
-                        <div className="feature-item">
-
-                            🔒
-
-                            <h5>
-
-                                Secure Payment
-
-                            </h5>
-
-                            <p>
-
-                                100% secure payment gateway.
-
-                            </p>
-
-                        </div>
-
-                        <div className="feature-item">
-
-                            🔄
-
-                            <h5>
-
-                                Easy Return
-
-                            </h5>
-
-                            <p>
-
-                                7 Days return policy.
-
-                            </p>
-
-                        </div>
-
-                        <div className="feature-item">
-
-                            ⭐
-
-                            <h5>
-
-                                Premium Quality
-
-                            </h5>
-
-                            <p>
-
-                                Genuine products with warranty.
-
-                            </p>
-
-                        </div>
-
                     </div>
 
+                    <ZariDivider className="my-12" />
+
+                    {/* Description */}
+
+                    <div className="rounded-2xl border border-sand/70 bg-white p-8 shadow-card">
+                        <h3 className="font-display text-2xl text-ink">Product Description</h3>
+
+                        <p className="mt-4 leading-relaxed text-muted">{product.description}</p>
+                    </div>
+
+                    {/* Specifications */}
+
+                    <div className="mt-8 rounded-2xl border border-sand/70 bg-white p-8 shadow-card">
+                        <h3 className="font-display text-2xl text-ink">Specifications</h3>
+
+                        <table className="mt-4 w-full text-sm">
+                            <tbody className="divide-y divide-sand/70">
+                                <tr>
+                                    <td className="py-3 pr-4 font-medium text-ink">Product Name</td>
+
+                                    <td className="py-3 text-muted">{product.name}</td>
+                                </tr>
+
+                                <tr>
+                                    <td className="py-3 pr-4 font-medium text-ink">Category</td>
+
+                                    <td className="py-3 text-muted">{product.category}</td>
+                                </tr>
+
+                                <tr>
+                                    <td className="py-3 pr-4 font-medium text-ink">Price</td>
+
+                                    <td className="py-3 text-muted">₹ {product.price}</td>
+                                </tr>
+
+                                <tr>
+                                    <td className="py-3 pr-4 font-medium text-ink">Stock</td>
+
+                                    <td className="py-3 text-muted">{product.stock}</td>
+                                </tr>
+
+                                <tr>
+                                    <td className="py-3 pr-4 font-medium text-ink">Availability</td>
+
+                                    <td className="py-3 text-muted">
+                                        {product.stock > 0 ? "In Stock" : "Out of Stock"}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td className="py-3 pr-4 font-medium text-ink">Delivery</td>
+
+                                    <td className="py-3 text-muted">Free Delivery Available</td>
+                                </tr>
+
+                                <tr>
+                                    <td className="py-3 pr-4 font-medium text-ink">Payment</td>
+
+                                    <td className="py-3 text-muted">Cash on Delivery / Online</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Features */}
+
+                    <div className="mt-8 rounded-2xl border border-sand/70 bg-white p-8 shadow-card">
+                        <h3 className="font-display text-2xl text-ink">Why Shop With Us?</h3>
+
+                        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                            <div className="rounded-xl border border-sand/70 bg-cream p-6 text-center">
+                                <div className="text-3xl">🚚</div>
+                                <h5 className="mt-3 font-display text-lg text-ink">Free Shipping</h5>
+                                <p className="mt-1 text-sm text-muted">
+                                    Free delivery on eligible orders.
+                                </p>
+                            </div>
+
+                            <div className="rounded-xl border border-sand/70 bg-cream p-6 text-center">
+                                <div className="text-3xl">🔒</div>
+                                <h5 className="mt-3 font-display text-lg text-ink">
+                                    Secure Payment
+                                </h5>
+                                <p className="mt-1 text-sm text-muted">
+                                    100% secure payment gateway.
+                                </p>
+                            </div>
+
+                            <div className="rounded-xl border border-sand/70 bg-cream p-6 text-center">
+                                <div className="text-3xl">🔄</div>
+                                <h5 className="mt-3 font-display text-lg text-ink">Easy Return</h5>
+                                <p className="mt-1 text-sm text-muted">7 Days return policy.</p>
+                            </div>
+
+                            <div className="rounded-xl border border-sand/70 bg-cream p-6 text-center">
+                                <div className="text-3xl">⭐</div>
+                                <h5 className="mt-3 font-display text-lg text-ink">
+                                    Premium Quality
+                                </h5>
+                                <p className="mt-1 text-sm text-muted">
+                                    Genuine products with warranty.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
-
-        </section>
-
+            </section>
         </>
-
     );
-
 }
 
 export default ProductDetails;
