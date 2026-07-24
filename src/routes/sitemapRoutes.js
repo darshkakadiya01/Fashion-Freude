@@ -4,31 +4,23 @@ const router = express.Router();
 const Product = require("../models/Product");
 const Category = require("../models/Category");
 
-
 // ==============================
 // Dynamic Sitemap
 // ==============================
 
 router.get("/sitemap.xml", async (req, res) => {
-
     try {
-
         const baseUrl = process.env.BASE_URL || "http://localhost:3000";
-
 
         const products = await Product.findAll();
 
         const categories = await Category.findAll();
-
-
 
         let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
 
         xml += `
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 `;
-
-
 
         // ==============================
         // Static Pages
@@ -41,13 +33,10 @@ router.get("/sitemap.xml", async (req, res) => {
             "/contact-us",
             "/privacy-policy",
             "/refund_returns",
-            "/terms-and-condition"
+            "/terms-and-condition",
         ];
 
-
-        pages.forEach((page)=>{
-
-
+        pages.forEach((page) => {
             xml += `
 <url>
 
@@ -61,40 +50,25 @@ router.get("/sitemap.xml", async (req, res) => {
 
 </url>
 `;
-
         });
-
-
-
-
 
         // ==============================
         // Category Pages
         // ==============================
 
-
-        categories.forEach((category)=>{
-
-
+        categories.forEach((category) => {
             let slug = category.slug;
 
-
-            if(!slug && category.name){
-
+            if (!slug && category.name) {
                 slug = category.name
-                .toLowerCase()
-                .trim()
-                .replace(/[^a-z0-9\s-]/g,"")
-                .replace(/\s+/g,"-")
-                .replace(/-+/g,"-");
-
+                    .toLowerCase()
+                    .trim()
+                    .replace(/[^a-z0-9\s-]/g, "")
+                    .replace(/\s+/g, "-")
+                    .replace(/-+/g, "-");
             }
 
-
-
-            if(!slug) return;
-
-
+            if (!slug) return;
 
             xml += `
 <url>
@@ -109,49 +83,25 @@ router.get("/sitemap.xml", async (req, res) => {
 
 </url>
 `;
-
-
-
         });
-
-
-
-
-
-
 
         // ==============================
         // Product Pages
         // ==============================
 
-
-        products.forEach((product)=>{
-
-
+        products.forEach((product) => {
             let slug = product.slug;
 
-
-
-            if(!slug && product.name){
-
-
+            if (!slug && product.name) {
                 slug = product.name
-                .toLowerCase()
-                .trim()
-                .replace(/[^a-z0-9\s-]/g,"")
-                .replace(/\s+/g,"-")
-                .replace(/-+/g,"-");
-
-
+                    .toLowerCase()
+                    .trim()
+                    .replace(/[^a-z0-9\s-]/g, "")
+                    .replace(/\s+/g, "-")
+                    .replace(/-+/g, "-");
             }
 
-
-
-
-            if(!slug) return;
-
-
-
+            if (!slug) return;
 
             xml += `
 <url>
@@ -166,24 +116,13 @@ router.get("/sitemap.xml", async (req, res) => {
 
 </url>
 `;
-
-
-
         });
-
-
-
-
-
-
 
         // ==============================
         // Blog Pages
         // ==============================
 
-
         const blogs = [
-
             "top-saree-styles-trends",
             "womens-best-nail-paint",
             "womens-best-hair-styles",
@@ -203,16 +142,10 @@ router.get("/sitemap.xml", async (req, res) => {
             "womens-shoe-styles-trends",
             "best-track-pant",
             "best-t-shirt",
-            "best-pant"
-
+            "best-pant",
         ];
 
-
-
-
-        blogs.forEach((blog)=>{
-
-
+        blogs.forEach((blog) => {
             xml += `
 <url>
 
@@ -226,56 +159,24 @@ router.get("/sitemap.xml", async (req, res) => {
 
 </url>
 `;
-
-
-
         });
-
-
-
-
-
-
 
         xml += `
 </urlset>
 `;
 
-
-
-        res.header(
-            "Content-Type",
-            "application/xml"
-        );
-
+        res.header("Content-Type", "application/xml");
 
         res.send(xml);
-
-
-
-    } catch(error){
-
-
-        console.log(
-            "Sitemap Error:",
-            error
-        );
-
+    } catch (error) {
+        console.log("Sitemap Error:", error);
 
         res.status(500).json({
+            success: false,
 
-            success:false,
-
-            message:error.message
-
+            message: error.message,
         });
-
-
     }
-
-
 });
-
-
 
 module.exports = router;

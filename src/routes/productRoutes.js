@@ -10,7 +10,7 @@ const {
     getProductBySlug,
     addProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
 } = require("../controllers/productController");
 
 // ====================================
@@ -43,12 +43,12 @@ router.post(
     upload.fields([
         {
             name: "image",
-            maxCount: 1
+            maxCount: 1,
         },
         {
             name: "gallery",
-            maxCount: 4
-        }
+            maxCount: 4,
+        },
     ]),
     addProduct
 );
@@ -58,12 +58,12 @@ router.put(
     upload.fields([
         {
             name: "image",
-            maxCount: 1
+            maxCount: 1,
         },
         {
             name: "gallery",
-            maxCount: 4
-        }
+            maxCount: 4,
+        },
     ]),
     updateProduct
 );
@@ -71,9 +71,6 @@ router.put(
 // ====================================
 // Delete Product
 // ====================================
-router.delete(
-    "/delete/:id",
-    deleteProduct
-);
+router.delete("/delete/:id", deleteProduct);
 
 module.exports = router;

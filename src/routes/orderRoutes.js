@@ -7,7 +7,7 @@ const {
     getOrders,
     getOrderById,
     updateOrderStatus,
-    deleteOrder
+    deleteOrder,
 } = require("../controllers/orderController");
 
 // Create Order

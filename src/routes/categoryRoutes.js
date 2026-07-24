@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  getCategories,
-  getCategory,
-  addCategory,
-  updateCategory,
-  deleteCategory,
+    getCategories,
+    getCategory,
+    addCategory,
+    updateCategory,
+    deleteCategory,
 } = require("../controllers/categoryController");
 
 // Get All Categories

@@ -21,7 +21,7 @@ const normalizeProduct = (product) => {
 
     return {
         ...plainProduct,
-        gallery
+        gallery,
     };
 };
 
@@ -30,20 +30,16 @@ const normalizeProduct = (product) => {
 // ===============================
 exports.getProducts = async (req, res) => {
     try {
-
         const products = await Product.findAll({
-            order: [["createdAt", "DESC"]]
+            order: [["createdAt", "DESC"]],
         });
 
         return res.status(200).json(products.map(normalizeProduct));
-
     } catch (error) {
-
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: error.message,
         });
-
     }
 };
 
@@ -51,58 +47,46 @@ exports.getProducts = async (req, res) => {
 // Get Product By Slug
 // ===============================
 exports.getProductBySlug = async (req, res) => {
-
     try {
-
         const product = await Product.findOne({
             where: {
-                slug: req.params.slug
-            }
+                slug: req.params.slug,
+            },
         });
 
         if (!product) {
             return res.status(404).json({
                 success: false,
-                message: "Product not found"
+                message: "Product not found",
             });
         }
 
         return res.status(200).json(normalizeProduct(product));
-
     } catch (error) {
-
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: error.message,
         });
-
     }
-
 };
 
 // ===============================
 // Add Product
 // ===============================
 exports.addProduct = async (req, res) => {
-
     try {
+        const image = req.files?.image ? req.files.image[0].filename : "";
 
-        const image = req.files?.image
-            ? req.files.image[0].filename
-            : "";
-
-        const gallery = req.files?.gallery
-            ? req.files.gallery.map(file => file.filename)
-            : [];
+        const gallery = req.files?.gallery ? req.files.gallery.map((file) => file.filename) : [];
 
         let slug = slugify(req.body.name, {
             lower: true,
             strict: true,
-            trim: true
+            trim: true,
         });
 
         const exists = await Product.findOne({
-            where: { slug }
+            where: { slug },
         });
 
         if (exists) {
@@ -110,7 +94,6 @@ exports.addProduct = async (req, res) => {
         }
 
         const product = await Product.create({
-
             name: req.body.name,
 
             slug,
@@ -125,73 +108,60 @@ exports.addProduct = async (req, res) => {
 
             image,
 
-            gallery
-
+            gallery,
         });
 
         return res.status(201).json({
             success: true,
             message: "Product Added Successfully",
-            product: normalizeProduct(product)
+            product: normalizeProduct(product),
         });
-
     } catch (error) {
-
         console.log(error);
 
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: error.message,
         });
-
     }
-
 };
 
 // ===============================
 // Update Product
 // ===============================
 exports.updateProduct = async (req, res) => {
-
     try {
-
         const product = await Product.findByPk(req.params.id);
 
         if (!product) {
-
             return res.status(404).json({
                 success: false,
-                message: "Product not found"
+                message: "Product not found",
             });
-
         }
 
         const updateData = {
-            ...req.body
+            ...req.body,
         };
 
         if (req.body.name) {
-
             let slug = slugify(req.body.name, {
                 lower: true,
                 strict: true,
-                trim: true
+                trim: true,
             });
 
             if (slug !== product.slug) {
-
                 const exists = await Product.findOne({
-                    where: { slug }
+                    where: { slug },
                 });
 
                 if (exists) {
                     slug = `${slug}-${Date.now()}`;
                 }
-
             }
 
             updateData.slug = slug;
-
         }
 
         if (req.files?.image) {
@@ -199,7 +169,7 @@ exports.updateProduct = async (req, res) => {
         }
 
         if (req.files?.gallery) {
-            updateData.gallery = req.files.gallery.map(file => file.filename);
+            updateData.gallery = req.files.gallery.map((file) => file.filename);
         }
 
         await product.update(updateData);
@@ -207,71 +177,54 @@ exports.updateProduct = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Product Updated Successfully",
-            product: normalizeProduct(product)
+            product: normalizeProduct(product),
         });
-
     } catch (error) {
-
         console.log(error);
 
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: error.message,
         });
-
     }
-
 };
 
 // ===============================
 // Delete Product
 // ===============================
 exports.deleteProduct = async (req, res) => {
-
     try {
-
         const product = await Product.findByPk(req.params.id);
 
         if (!product) {
-
             return res.status(404).json({
                 success: false,
-                message: "Product not found"
+                message: "Product not found",
             });
-
         }
 
         await product.destroy();
 
         return res.status(200).json({
             success: true,
-            message: "Product Deleted Successfully"
+            message: "Product Deleted Successfully",
         });
-
     } catch (error) {
-
         console.log(error);
 
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: error.message,
         });
-
     }
-
 };
 
 // ===============================
 // Get Products By Category
 // ===============================
 exports.getProductsByCategory = async (req, res) => {
-
     try {
-
-        const category = req.params.category
-            .replace(/-/g, " ")
-            .trim()
-            .toLowerCase();
+        const category = req.params.category.replace(/-/g, " ").trim().toLowerCase();
 
         console.log("Requested Category:", category);
 
@@ -283,85 +236,67 @@ exports.getProductsByCategory = async (req, res) => {
         });
 
         const products = await Product.findAll({
-
             where: Product.sequelize.where(
                 Product.sequelize.fn("LOWER", Product.sequelize.col("category")),
                 category
             ),
 
-            order: [["createdAt", "DESC"]]
-
+            order: [["createdAt", "DESC"]],
         });
 
         console.log("Matched Products:", products.length);
 
         return res.status(200).json(products.map(normalizeProduct));
-
     } catch (error) {
-
         console.log(error);
 
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: error.message,
         });
-
     }
-
 };
 
 // ===============================
 // Search Products
 // ===============================
 exports.searchProducts = async (req, res) => {
-
     try {
-
         const keyword = req.query.keyword || "";
 
         const products = await Product.findAll({
-
             where: {
-
                 [Op.or]: [
-
                     {
                         name: {
-                            [Op.like]: `%${keyword}%`
-                        }
+                            [Op.like]: `%${keyword}%`,
+                        },
                     },
 
                     {
                         category: {
-                            [Op.like]: `%${keyword}%`
-                        }
+                            [Op.like]: `%${keyword}%`,
+                        },
                     },
 
                     {
                         description: {
-                            [Op.like]: `%${keyword}%`
-                        }
-                    }
-
-                ]
-
+                            [Op.like]: `%${keyword}%`,
+                        },
+                    },
+                ],
             },
 
-            order: [["createdAt", "DESC"]]
-
+            order: [["createdAt", "DESC"]],
         });
 
         return res.status(200).json(products.map(normalizeProduct));
-
     } catch (error) {
-
         console.log(error);
 
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: error.message,
         });
-
     }
-
 };

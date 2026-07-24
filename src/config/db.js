@@ -1,13 +1,14 @@
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
-    "shopsphere",   // <-- અહીં database નામ
-    "root",
-    "",
+    process.env.DB_NAME || "shopsphere",
+    process.env.DB_USER || "root",
+    process.env.DB_PASSWORD || "",
     {
-        host: "localhost",
+        host: process.env.DB_HOST || "localhost",
+        port: process.env.DB_PORT || 3306,
         dialect: "mysql",
-        logging: false
+        logging: false,
     }
 );
 
@@ -23,5 +24,5 @@ const connectDB = async () => {
 
 module.exports = {
     sequelize,
-    connectDB
+    connectDB,
 };
