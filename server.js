@@ -1,5 +1,13 @@
+const fs = require("fs");
+const path = require("path");
 const dotenv = require("dotenv");
-dotenv.config();
+
+// Load `.env.<NODE_ENV>` when it exists (e.g. .env.production), otherwise `.env`.
+// Variables already present in the real environment — such as the ones Hostinger
+// injects from its panel — always win, because dotenv never overwrites them.
+const envByStage = path.join(__dirname, `.env.${process.env.NODE_ENV || "development"}`);
+const envFile = fs.existsSync(envByStage) ? envByStage : path.join(__dirname, ".env");
+dotenv.config({ path: envFile });
 
 const app = require("./src/app");
 const { connectDB, sequelize } = require("./src/config/db");
