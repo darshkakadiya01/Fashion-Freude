@@ -14,7 +14,25 @@ const app = express();
 // Middlewares
 // ==============================
 
-app.use(cors());
+// The storefront runs on its own domain, the API on api.<domain>, so requests are
+// cross-origin. Override the allowlist in production with CORS_ORIGIN (comma-separated).
+const allowedOrigins = (
+    process.env.CORS_ORIGIN ||
+    "https://fashionfreude.com,https://www.fashionfreude.com,http://localhost:3000"
+)
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+app.use(
+    cors({
+        origin(origin, callback) {
+            // no Origin header = same-origin, curl, or server-to-server — allow it
+            if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+            return callback(new Error(`Not allowed by CORS: ${origin}`));
+        },
+    })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
