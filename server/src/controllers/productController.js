@@ -48,10 +48,17 @@ exports.getProducts = async (req, res) => {
 // ===============================
 exports.getProductBySlug = async (req, res) => {
     try {
+        const query = {
+            [Op.or]: [
+                { slug: req.params.slug }
+            ]
+        };
+        if (!isNaN(req.params.slug)) {
+            query[Op.or].push({ id: parseInt(req.params.slug, 10) });
+        }
+
         const product = await Product.findOne({
-            where: {
-                slug: req.params.slug,
-            },
+            where: query,
         });
 
         if (!product) {
