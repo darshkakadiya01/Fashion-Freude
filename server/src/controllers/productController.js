@@ -44,15 +44,23 @@ exports.getProducts = async (req, res) => {
 };
 
 // ===============================
-// Get Product By Slug
+// Get Product By Slug or ID
 // ===============================
 exports.getProductBySlug = async (req, res) => {
     try {
-        const product = await Product.findOne({
+        const param = req.params.slug;
+
+        // Try to find by slug first
+        let product = await Product.findOne({
             where: {
-                slug: req.params.slug,
+                slug: param,
             },
         });
+
+        // If not found and param looks like a numeric id, try findByPk
+        if (!product && /^\d+$/.test(param)) {
+            product = await Product.findByPk(parseInt(param, 10));
+        }
 
         if (!product) {
             return res.status(404).json({
