@@ -6,7 +6,7 @@ import SectionHeading from "../components/SectionHeading";
 import ZariDivider from "../components/ZariDivider";
 import { blogs } from "../blogs/Blogs";
 
-const CATEGORIES = ["All", "Kurti", "Saree", "Lehenga Choli", "Salwar Suit"];
+const CATEGORIES = ["All", "Kurti", "Saree", "Lehenga Choli", "Salwar Suit", "Meesho"];
 
 const FEATURES = [
     { icon: "🚚", title: "Free Shipping", text: "On all orders above ₹999" },

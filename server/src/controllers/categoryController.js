@@ -78,10 +78,25 @@ exports.updateCategory = async (req, res) => {
             });
         }
 
+        const oldName = category.name;
+        const newName = req.body.name ? req.body.name.trim() : oldName;
+
         await category.update({
-            name: req.body.name,
-            image: req.body.image,
+            name: newName,
+            image: req.body.image !== undefined ? req.body.image : category.image,
         });
+
+        if (oldName && newName && oldName !== newName) {
+            try {
+                const Product = require("../models/Product");
+                await Product.update(
+                    { category: newName },
+                    { where: { category: oldName } }
+                );
+            } catch (prodErr) {
+                console.warn("Could not cascade category name update to products:", prodErr.message);
+            }
+        }
 
         return res.status(200).json({
             success: true,

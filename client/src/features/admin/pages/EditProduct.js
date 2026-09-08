@@ -18,6 +18,7 @@ function EditProduct() {
     category: "",
     stock: "",
     image: "",
+    buyNowUrl: "",
     gallery: [],
   });
 
@@ -40,6 +41,7 @@ function EditProduct() {
           category: productData.category || "",
           stock: productData.stock || "",
           image: productData.image || "",
+          buyNowUrl: productData.buyNowUrl || "",
           gallery: Array.isArray(productData.gallery)
             ? productData.gallery
             : typeof productData.gallery === "string"
@@ -110,6 +112,7 @@ function EditProduct() {
       formData.append("price", product.price);
       formData.append("category", product.category);
       formData.append("stock", product.stock);
+      formData.append("buyNowUrl", product.buyNowUrl || "");
 
       if (mainImage) {
         formData.append("image", mainImage);
@@ -203,6 +206,25 @@ function EditProduct() {
                 ))}
               </select>
             </div>
+
+            {product.category?.trim().toLowerCase() === "meesho" && (
+              <div className="mb-4 rounded-xl border border-gold/40 bg-cream/40 p-4">
+                <label className="field-label text-maroon font-semibold flex items-center gap-2">
+                  <span>🔗</span> Meesho Product URL / Buy Now Link
+                </label>
+                <input
+                  type="url"
+                  className="field mt-1"
+                  placeholder="https://www.meesho.com/..."
+                  name="buyNowUrl"
+                  value={product.buyNowUrl || ""}
+                  onChange={handleChange}
+                />
+                <small className="mt-1.5 block text-xs text-muted">
+                  When customers click "Buy Now" on this Meesho product, they will be redirected to this link.
+                </small>
+              </div>
+            )}
 
             <div className="mb-4">
               <label className="field-label">Main Product Image</label>

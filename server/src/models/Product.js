@@ -44,6 +44,12 @@ const Product = sequelize.define(
             type: DataTypes.JSON,
             defaultValue: [],
         },
+
+        buyNowUrl: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            defaultValue: "",
+        },
     },
     {
         timestamps: true,

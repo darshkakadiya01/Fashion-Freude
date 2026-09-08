@@ -4,11 +4,14 @@ import {
     getCategories as fetchCategories,
     addCategory as createCategory,
     deleteCategory as removeCategory,
+    updateCategory as editCategory,
 } from "../../../api/categories";
 
 function Categories() {
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState("");
+    const [editingId, setEditingId] = useState(null);
+    const [editName, setEditName] = useState("");
 
     // ================= GET CATEGORIES =================
 
@@ -61,6 +64,44 @@ function Categories() {
         }
     };
 
+    // ================= EDIT CATEGORY =================
+
+    const startEdit = (category) => {
+        setEditingId(category.id);
+        setEditName(category.name);
+    };
+
+    const cancelEdit = () => {
+        setEditingId(null);
+        setEditName("");
+    };
+
+    const saveCategory = async (id) => {
+        if (editName.trim() === "") {
+            alert("Please enter category name");
+            return;
+        }
+
+        try {
+            const data = await editCategory(id, editName.trim());
+
+            alert(data.message || "Category updated successfully");
+
+            setEditingId(null);
+            setEditName("");
+
+            getCategories();
+        } catch (error) {
+            console.log(error);
+
+            if (error.response) {
+                alert(error.response.data.message || JSON.stringify(error.response.data));
+            } else {
+                alert(error.message);
+            }
+        }
+    };
+
     // ================= DELETE CATEGORY =================
 
     const deleteCategory = async (id) => {
@@ -98,6 +139,9 @@ function Categories() {
                         placeholder="Enter Category Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") addCategory();
+                        }}
                     />
 
                     <button className="btn-primary sm:w-40" onClick={addCategory}>
@@ -141,16 +185,61 @@ function Categories() {
                                         </td>
 
                                         <td className="border-t border-sand/60 px-4 py-3 font-medium text-ink">
-                                            {category.name}
+                                            {editingId === category.id ? (
+                                                <div className="flex items-center gap-2 max-w-sm">
+                                                    <input
+                                                        type="text"
+                                                        className="field !py-1.5 text-sm"
+                                                        value={editName}
+                                                        onChange={(e) => setEditName(e.target.value)}
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === "Enter") saveCategory(category.id);
+                                                            if (e.key === "Escape") cancelEdit();
+                                                        }}
+                                                        autoFocus
+                                                    />
+                                                </div>
+                                            ) : (
+                                                category.name
+                                            )}
                                         </td>
 
                                         <td className="border-t border-sand/60 px-4 py-3">
-                                            <button
-                                                className="rounded-full bg-maroon px-4 py-1.5 text-xs font-medium text-ivory transition-colors hover:bg-maroon-dark"
-                                                onClick={() => deleteCategory(category.id)}
-                                            >
-                                                Delete
-                                            </button>
+                                            <div className="flex items-center gap-2">
+                                                {editingId === category.id ? (
+                                                    <>
+                                                        <button
+                                                            className="btn-gold !px-3.5 !py-1.5 text-xs font-semibold"
+                                                            onClick={() => saveCategory(category.id)}
+                                                        >
+                                                            Save
+                                                        </button>
+
+                                                        <button
+                                                            className="btn-outline !px-3.5 !py-1.5 text-xs"
+                                                            onClick={cancelEdit}
+                                                        >
+                                                            Cancel
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <button
+                                                            className="btn-outline !px-4 !py-1.5 text-xs"
+                                                            onClick={() => startEdit(category)}
+                                                        >
+                                                            Edit
+                                                        </button>
+
+                                                        <button
+                                                            className="rounded-full bg-maroon px-4 py-1.5 text-xs font-medium text-ivory transition-colors hover:bg-maroon-dark"
+                                                            onClick={() => deleteCategory(category.id)}
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </>
+                                                )}
+                                            </div>
                                         </td>
                                     </tr>
                                 ))
@@ -164,3 +253,4 @@ function Categories() {
 }
 
 export default Categories;
+

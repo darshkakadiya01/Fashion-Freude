@@ -24,6 +24,21 @@ const startServer = async () => {
         await sequelize.sync(alter ? { alter: true } : undefined);
         console.log(`MySQL Tables Synced Successfully${alter ? " (alter)" : ""}`);
 
+        try {
+            const queryInterface = sequelize.getQueryInterface();
+            const table = await queryInterface.describeTable("Products");
+            if (!table.buyNowUrl) {
+                const { DataTypes } = require("sequelize");
+                await queryInterface.addColumn("Products", "buyNowUrl", {
+                    type: DataTypes.TEXT,
+                    allowNull: true,
+                    defaultValue: null,
+                });
+            }
+        } catch (e) {
+            // Ignore if column check is not needed
+        }
+
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
             console.log(`Sitemap: http://localhost:${PORT}/sitemap.xml`);

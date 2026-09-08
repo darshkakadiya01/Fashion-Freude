@@ -7,3 +7,7 @@ export const addCategory = (name) =>
 
 export const deleteCategory = (id) =>
     axiosClient.delete(`/categories/delete/${id}`).then((res) => res.data);
+
+export const updateCategory = (id, name) =>
+    axiosClient.put(`/categories/update/${id}`, { name }).then((res) => res.data);
+

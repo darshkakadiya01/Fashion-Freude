@@ -21,6 +21,7 @@ const normalizeProduct = (product) => {
 
     return {
         ...plainProduct,
+        buyNowUrl: plainProduct.buyNowUrl || "",
         gallery,
     };
 };
@@ -116,6 +117,8 @@ exports.addProduct = async (req, res) => {
             image,
 
             gallery,
+
+            buyNowUrl: req.body.buyNowUrl || "",
         });
 
         return res.status(201).json({
@@ -150,6 +153,10 @@ exports.updateProduct = async (req, res) => {
         const updateData = {
             ...req.body,
         };
+
+        if (req.body.buyNowUrl !== undefined) {
+            updateData.buyNowUrl = req.body.buyNowUrl;
+        }
 
         if (req.body.name) {
             let slug = slugify(req.body.name, {

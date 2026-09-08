@@ -10,6 +10,7 @@ function AddProduct() {
         price: "",
         category: "",
         stock: "",
+        buyNowUrl: "",
     });
 
     const [image, setImage] = useState(null);
@@ -49,6 +50,7 @@ function AddProduct() {
             formData.append("price", product.price);
             formData.append("category", product.category);
             formData.append("stock", product.stock);
+            formData.append("buyNowUrl", product.buyNowUrl || "");
 
             // Main Image
             formData.append("image", image);
@@ -68,6 +70,7 @@ function AddProduct() {
                 price: "",
                 category: "",
                 stock: "",
+                buyNowUrl: "",
             });
 
             setImage(null);
@@ -167,6 +170,25 @@ function AddProduct() {
                                 ))}
                             </select>
                         </div>
+
+                        {product.category?.trim().toLowerCase() === "meesho" && (
+                            <div className="mb-4 rounded-xl border border-gold/40 bg-cream/40 p-4">
+                                <label className="field-label text-maroon font-semibold flex items-center gap-2">
+                                    <span>🔗</span> Meesho Product URL / Buy Now Link
+                                </label>
+                                <input
+                                    className="field mt-1"
+                                    type="url"
+                                    placeholder="https://www.meesho.com/..."
+                                    name="buyNowUrl"
+                                    value={product.buyNowUrl}
+                                    onChange={handleChange}
+                                />
+                                <small className="mt-1.5 block text-xs text-muted">
+                                    When customers click "Buy Now" on this Meesho product, they will be redirected to this link.
+                                </small>
+                            </div>
+                        )}
 
                         {/* Main Image */}
 

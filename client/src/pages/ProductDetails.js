@@ -90,6 +90,17 @@ function ProductDetails() {
 
     const discount = Math.round(((oldPrice - product.price) / oldPrice) * 100);
 
+    const isMeesho = product?.category?.trim().toLowerCase() === "meesho";
+
+    const getBuyNowTargetUrl = () => {
+        let url = (product?.buyNowUrl || "").trim();
+        if (!url) return "https://www.meesho.com";
+        if (!/^https?:\/\//i.test(url)) {
+            url = `https://${url}`;
+        }
+        return url;
+    };
+
     const rawGallery = Array.isArray(product?.gallery)
         ? product.gallery
         : typeof product?.gallery === "string"
@@ -260,50 +271,79 @@ function ProductDetails() {
                                 </li>
                             </ul>
 
-                            {/* Quantity */}
-
-                            <div className="mt-8">
-                                <h5 className="field-label">Quantity</h5>
-
-                                <div className="mt-2 inline-flex items-center gap-4 rounded-full border border-sand bg-white px-2 py-1">
-                                    <button
-                                        onClick={decreaseQty}
-                                        className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-maroon transition hover:bg-cream"
+                            {isMeesho ? (
+                                <div className="mt-8">
+                                    <a
+                                        href={getBuyNowTargetUrl()}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn-gold flex w-full items-center justify-center gap-2 py-3.5 text-base font-semibold shadow-soft transition-all duration-300 hover:shadow-card"
                                     >
-                                        −
-                                    </button>
-
-                                    <span className="w-6 text-center font-display text-xl text-ink">
-                                        {quantity}
-                                    </span>
-
-                                    <button
-                                        onClick={increaseQty}
-                                        className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-maroon transition hover:bg-cream"
-                                    >
-                                        +
-                                    </button>
+                                        ⚡ Buy Now
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-4 w-4"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                            />
+                                        </svg>
+                                    </a>
                                 </div>
-                            </div>
+                            ) : (
+                                <>
+                                    {/* Quantity */}
 
-                            {/* Buttons */}
+                                    <div className="mt-8">
+                                        <h5 className="field-label">Quantity</h5>
 
-                            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                                <button
-                                    className="btn-primary flex-1 justify-center"
-                                    onClick={handleAddToCart}
-                                >
-                                    🛒 Add To Cart
-                                </button>
+                                        <div className="mt-2 inline-flex items-center gap-4 rounded-full border border-sand bg-white px-2 py-1">
+                                            <button
+                                                onClick={decreaseQty}
+                                                className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-maroon transition hover:bg-cream"
+                                            >
+                                                −
+                                            </button>
 
-                                <Link
-                                    to="/checkout"
-                                    className="btn-gold flex-1 justify-center"
-                                    onClick={handleAddToCart}
-                                >
-                                    ⚡ Buy Now
-                                </Link>
-                            </div>
+                                            <span className="w-6 text-center font-display text-xl text-ink">
+                                                {quantity}
+                                            </span>
+
+                                            <button
+                                                onClick={increaseQty}
+                                                className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-maroon transition hover:bg-cream"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Buttons */}
+
+                                    <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                                        <button
+                                            className="btn-primary flex-1 justify-center"
+                                            onClick={handleAddToCart}
+                                        >
+                                            🛒 Add To Cart
+                                        </button>
+
+                                        <Link
+                                            to="/checkout"
+                                            className="btn-gold flex-1 justify-center"
+                                            onClick={handleAddToCart}
+                                        >
+                                            ⚡ Buy Now
+                                        </Link>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </div>
 
