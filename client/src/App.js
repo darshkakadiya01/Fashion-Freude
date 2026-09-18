@@ -19,6 +19,7 @@ import Dashboard from "./features/admin/pages/Dashboard";
 import Products from "./features/admin/pages/Products";
 import Categories from "./features/admin/pages/Categories";
 import Orders from "./features/admin/pages/Orders";
+import Comments from "./features/admin/pages/Comments";
 import EditProduct from "./features/admin/pages/EditProduct";
 import ScrollToTop from "./components/ScrollToTop";
 import About from "./pages/About";
@@ -100,6 +101,8 @@ function App() {
                 <Route path="/admin/categories" element={<Categories />} />
 
                 <Route path="/admin/orders" element={<Orders />} />
+
+                <Route path="/admin/comments" element={<Comments />} />
 
                 <Route path="/blog" element={<Blogs />} />
 

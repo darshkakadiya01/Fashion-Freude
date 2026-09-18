@@ -39,6 +39,13 @@ const startServer = async () => {
             // Ignore if column check is not needed
         }
 
+        try {
+            const Comment = require("./src/models/Comment");
+            await Comment.sync();
+        } catch (e) {
+            // Ignore if already synced
+        }
+
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
             console.log(`Sitemap: http://localhost:${PORT}/sitemap.xml`);

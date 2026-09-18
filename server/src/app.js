@@ -6,6 +6,7 @@ const productRoutes = require("./routes/productRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const authRoutes = require("./routes/authRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 const sitemapRoute = require("./routes/sitemapRoutes");
 
 const app = express();
@@ -50,6 +51,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/users", authRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/comments", commentRoutes);
 
 // ==============================
 // Sitemap Route

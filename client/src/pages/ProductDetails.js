@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getProduct } from "../api/products";
+import { getCommentsByProductId, submitComment, updateComment } from "../api/comments";
 import { getImageUrl } from "../config";
 import { useCart } from "../context/CartContext";
 import ZariDivider from "../components/ZariDivider";
@@ -20,6 +21,196 @@ function ProductDetails() {
     const [loading, setLoading] = useState(true);
 
     const [selectedImage, setSelectedImage] = useState("");
+
+    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+    const [commentName, setCommentName] = useState("");
+    const [commentEmail, setCommentEmail] = useState("");
+    const [commentRating, setCommentRating] = useState(5);
+    const [commentMessage, setCommentMessage] = useState("");
+    const [commentSuccess, setCommentSuccess] = useState("");
+    const [commentError, setCommentError] = useState("");
+    const [isSubmittingComment, setIsSubmittingComment] = useState(false);
+    const [commentsList, setCommentsList] = useState([]);
+    const [commentsLoading, setCommentsLoading] = useState(false);
+
+    // Admin-only edit state
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [editingComment, setEditingComment] = useState(null);
+    const [editName, setEditName] = useState("");
+    const [editEmail, setEditEmail] = useState("");
+    const [editRating, setEditRating] = useState(5);
+    const [editMessage, setEditMessage] = useState("");
+    const [isSavingEdit, setIsSavingEdit] = useState(false);
+    const [editError, setEditError] = useState("");
+
+    useEffect(() => {
+        try {
+            const storedUser = localStorage.getItem("user");
+            if (storedUser) {
+                const u = JSON.parse(storedUser);
+                if (u && u.role === "admin") {
+                    setIsAdmin(true);
+                }
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }, []);
+
+    const fetchComments = async (productId) => {
+        if (!productId) return;
+        try {
+            setCommentsLoading(true);
+            const res = await getCommentsByProductId(productId);
+            if (res && res.success) {
+                setCommentsList(res.comments || []);
+            }
+        } catch (e) {
+            console.error("Failed to load product comments:", e);
+        } finally {
+            setCommentsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (product && product.id) {
+            fetchComments(product.id);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [product?.id]);
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Escape" && isCommentModalOpen) {
+                setIsCommentModalOpen(false);
+                setCommentError("");
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [isCommentModalOpen]);
+
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault();
+        setCommentError("");
+
+        if (!product || !product.id) {
+            setCommentError("Product information could not be loaded. Please refresh.");
+            return;
+        }
+
+        const emailTrimmed = commentEmail.trim();
+        const messageTrimmed = commentMessage.trim();
+        const nameTrimmed = commentName.trim();
+
+        if (!emailTrimmed || !messageTrimmed) {
+            setCommentError("Please fill in both email and message.");
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailTrimmed)) {
+            setCommentError("Please enter a valid email address.");
+            return;
+        }
+
+        try {
+            setIsSubmittingComment(true);
+            const res = await submitComment({
+                productId: product.id,
+                name: nameTrimmed || "Customer",
+                email: emailTrimmed,
+                rating: commentRating,
+                message: messageTrimmed,
+            });
+
+            if (res && res.success) {
+                setCommentSuccess("Thank you! Your comment has been submitted for review.");
+                setCommentName("");
+                setCommentEmail("");
+                setCommentMessage("");
+                setCommentRating(5);
+                setIsCommentModalOpen(false);
+                setTimeout(() => {
+                    setCommentSuccess("");
+                }, 6000);
+            } else {
+                setCommentError(res?.message || "Failed to submit comment. Please try again.");
+            }
+        } catch (err) {
+            console.error("Error submitting comment:", err);
+            setCommentError(
+                err.response?.data?.message || "Failed to submit comment. Please check your connection."
+            );
+        } finally {
+            setIsSubmittingComment(false);
+        }
+    };
+
+    const handleCloseCommentModal = () => {
+        setIsCommentModalOpen(false);
+        setCommentError("");
+    };
+
+    const handleOpenEditModal = (c) => {
+        setEditingComment(c);
+        setEditName(c.name || "");
+        setEditEmail(c.email || "");
+        setEditRating(c.rating || 5);
+        setEditMessage(c.message || "");
+        setEditError("");
+        setIsEditModalOpen(true);
+    };
+
+    const handleCloseEditModal = () => {
+        setIsEditModalOpen(false);
+        setEditingComment(null);
+        setEditError("");
+    };
+
+    const handleEditSubmit = async (e) => {
+        e.preventDefault();
+        setEditError("");
+
+        if (!editingComment) return;
+
+        const emailTrimmed = editEmail.trim();
+        const messageTrimmed = editMessage.trim();
+
+        if (!emailTrimmed || !messageTrimmed) {
+            setEditError("Email and message are required.");
+            return;
+        }
+
+        try {
+            setIsSavingEdit(true);
+            const res = await updateComment(editingComment.id, {
+                name: editName.trim() || "Customer",
+                email: emailTrimmed,
+                rating: editRating,
+                message: messageTrimmed,
+            });
+
+            if (res && res.success) {
+                handleCloseEditModal();
+                setCommentSuccess("Comment updated successfully!");
+                if (product && product.id) {
+                    fetchComments(product.id);
+                }
+                setTimeout(() => {
+                    setCommentSuccess("");
+                }, 5000);
+            } else {
+                setEditError(res?.message || "Failed to update comment.");
+            }
+        } catch (err) {
+            console.error("Error updating comment:", err);
+            setEditError(err.response?.data?.message || "Failed to update comment.");
+        } finally {
+            setIsSavingEdit(false);
+        }
+    };
 
     useEffect(() => {
         if (product) {
@@ -259,6 +450,27 @@ function ProductDetails() {
                                 </span>
                             </div>
 
+                            {/* Comment Button */}
+                            <div className="mt-5">
+                                <button
+                                    type="button"
+                                    id="btn-comment"
+                                    onClick={() => {
+                                        setIsCommentModalOpen(true);
+                                        setCommentError("");
+                                    }}
+                                    className="inline-flex items-center gap-2 rounded-full border border-maroon/30 bg-cream/70 px-5 py-2 text-sm font-medium text-maroon transition-all duration-300 hover:border-maroon hover:bg-maroon hover:text-ivory hover:shadow-soft"
+                                >
+                                    <span>💬</span>
+                                    <span>Comment</span>
+                                    {commentsList.length > 0 && (
+                                        <span className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-maroon/10 px-1.5 text-xs font-semibold text-maroon">
+                                            {commentsList.length}
+                                        </span>
+                                    )}
+                                </button>
+                            </div>
+
                             <ul className="mt-6 space-y-2 text-sm text-ink">
                                 <li className="flex items-center gap-3">
                                     <span className="text-gold">🚚</span> Free Delivery
@@ -452,7 +664,398 @@ function ProductDetails() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Customer Comments Section */}
+                    <div className="mt-8 rounded-2xl border border-sand/70 bg-white p-8 shadow-card">
+                        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                            <div>
+                                <p className="eyebrow">Customer Voice</p>
+                                <h3 className="mt-1 font-display text-2xl text-ink">
+                                    Customer Comments ({commentsList.length})
+                                </h3>
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setIsCommentModalOpen(true);
+                                    setCommentError("");
+                                }}
+                                className="btn-primary text-xs"
+                            >
+                                💬 Write a Comment
+                            </button>
+                        </div>
+
+                        {/* Short Thank You Message */}
+                        {commentSuccess && (
+                            <div className="mt-4 flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs font-medium text-emerald-800">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-bold text-emerald-600">✓</span>
+                                    <span>{commentSuccess}</span>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setCommentSuccess("")}
+                                    className="text-xs font-bold text-emerald-800 hover:text-emerald-950"
+                                    aria-label="Dismiss message"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        )}
+
+                        {commentsLoading ? (
+                            <div className="mt-6 flex items-center justify-center p-8 text-sm text-muted">
+                                <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-maroon border-t-transparent"></span>
+                                Loading verified comments...
+                            </div>
+                        ) : commentsList.length === 0 ? (
+                            <div className="mt-6 rounded-xl border border-dashed border-sand p-8 text-center text-muted">
+                                No comments yet. Be the first to share your feedback!
+                            </div>
+                        ) : (
+                            <div className="mt-6 divide-y divide-sand/60">
+                                {commentsList.map((c) => (
+                                    <div key={c.id} className="py-4 first:pt-0 last:pb-0">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cream font-display text-sm font-semibold text-maroon">
+                                                    {(c.name || c.email || "U").charAt(0).toUpperCase()}
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm font-medium text-ink">
+                                                        {c.name || c.email}
+                                                    </p>
+                                                    <p className="text-xs text-muted">
+                                                        {c.createdAt
+                                                            ? new Date(c.createdAt).toLocaleDateString("en-US", {
+                                                                  month: "short",
+                                                                  day: "numeric",
+                                                                  year: "numeric",
+                                                              })
+                                                            : "Verified Customer"}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div className="flex items-center gap-3">
+                                                {c.rating && (
+                                                    <div className="flex text-xs text-amber-500">
+                                                        {"★".repeat(c.rating)}
+                                                        {"☆".repeat(Math.max(0, 5 - c.rating))}
+                                                    </div>
+                                                )}
+
+                                                {isAdmin && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleOpenEditModal(c)}
+                                                        className="inline-flex items-center gap-1 rounded-lg border border-sand bg-cream px-2.5 py-1 text-xs font-semibold text-maroon shadow-sm transition hover:bg-maroon hover:text-white"
+                                                        title="Edit comment (Admin only)"
+                                                    >
+                                                        ✏️ Edit
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <p className="mt-3 pl-12 text-sm leading-relaxed text-muted">
+                                            {c.message}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
+
+                {/* Comment Modal Dialog */}
+                {isCommentModalOpen && (
+                    <div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-4 backdrop-blur-sm"
+                        onClick={handleCloseCommentModal}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="comment-modal-title"
+                    >
+                        <div
+                            className="relative w-full max-w-lg rounded-2xl border border-sand bg-white p-6 shadow-card sm:p-8"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Close Button */}
+                            <button
+                                type="button"
+                                onClick={handleCloseCommentModal}
+                                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-sand/60 text-muted transition hover:bg-cream hover:text-maroon"
+                                aria-label="Close comment modal"
+                            >
+                                ✕
+                            </button>
+
+                            <div className="pr-8">
+                                <p className="eyebrow">Customer Feedback</p>
+                                <h3
+                                    id="comment-modal-title"
+                                    className="mt-1 font-display text-2xl text-ink"
+                                >
+                                    Leave a Comment
+                                </h3>
+                                <p className="mt-1 text-xs text-muted">
+                                    Share your review or inquiry about{" "}
+                                    <span className="font-medium text-ink">
+                                        {product.name}
+                                    </span>
+                                </p>
+                            </div>
+
+                            <ZariDivider className="my-5" />
+
+                            {commentError && (
+                                <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-xs text-red-700">
+                                    {commentError}
+                                </div>
+                            )}
+
+                            <form onSubmit={handleCommentSubmit} className="space-y-4">
+                                <div>
+                                    <label
+                                        htmlFor="comment-name-input"
+                                        className="field-label"
+                                    >
+                                        Your Name
+                                    </label>
+                                    <input
+                                        id="comment-name-input"
+                                        type="text"
+                                        value={commentName}
+                                        onChange={(e) => setCommentName(e.target.value)}
+                                        placeholder="e.g. Priya Sharma"
+                                        className="field"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label
+                                        htmlFor="comment-email-input"
+                                        className="field-label"
+                                    >
+                                        Email Address <span className="text-maroon">*</span>
+                                    </label>
+                                    <input
+                                        id="comment-email-input"
+                                        type="email"
+                                        required
+                                        value={commentEmail}
+                                        onChange={(e) => setCommentEmail(e.target.value)}
+                                        placeholder="your.email@example.com"
+                                        className="field"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="field-label">
+                                        Rating
+                                    </label>
+                                    <div className="flex items-center gap-2 pt-1">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <button
+                                                key={star}
+                                                type="button"
+                                                onClick={() => setCommentRating(star)}
+                                                className="text-2xl text-amber-500 transition hover:scale-110 focus:outline-none"
+                                                title={`${star} Star${star > 1 ? "s" : ""}`}
+                                            >
+                                                {star <= commentRating ? "★" : "☆"}
+                                            </button>
+                                        ))}
+                                        <span className="ml-2 text-xs text-muted">
+                                            ({commentRating} / 5)
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label
+                                        htmlFor="comment-message-input"
+                                        className="field-label"
+                                    >
+                                        Message <span className="text-maroon">*</span>
+                                    </label>
+                                    <textarea
+                                        id="comment-message-input"
+                                        required
+                                        rows="4"
+                                        value={commentMessage}
+                                        onChange={(e) => setCommentMessage(e.target.value)}
+                                        placeholder="Write your comments or message here..."
+                                        className="field resize-none"
+                                    ></textarea>
+                                </div>
+
+                                <div className="flex items-center justify-end gap-3 pt-2">
+                                    <button
+                                        type="button"
+                                        onClick={handleCloseCommentModal}
+                                        className="btn-ghost text-xs"
+                                        disabled={isSubmittingComment}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="btn-primary text-xs"
+                                        disabled={isSubmittingComment}
+                                    >
+                                        {isSubmittingComment ? "Submitting..." : "Submit Comment"}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
+
+                {/* Admin Edit Comment Modal */}
+                {isAdmin && isEditModalOpen && (
+                    <div
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-4 backdrop-blur-sm"
+                        onClick={handleCloseEditModal}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="edit-comment-modal-title"
+                    >
+                        <div
+                            className="relative w-full max-w-lg rounded-2xl border border-sand bg-white p-6 shadow-card sm:p-8"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                type="button"
+                                onClick={handleCloseEditModal}
+                                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-sand/60 text-muted transition hover:bg-cream hover:text-maroon"
+                                aria-label="Close edit modal"
+                            >
+                                ✕
+                            </button>
+
+                            <div className="pr-8">
+                                <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-amber-800">
+                                    🛡️ Admin Mode
+                                </span>
+                                <h3
+                                    id="edit-comment-modal-title"
+                                    className="mt-2 font-display text-2xl text-ink"
+                                >
+                                    Edit Customer Comment
+                                </h3>
+                                <p className="mt-1 text-xs text-muted">
+                                    Modify comment details for{" "}
+                                    <span className="font-medium text-ink">
+                                        {product?.name}
+                                    </span>
+                                </p>
+                            </div>
+
+                            <ZariDivider className="my-5" />
+
+                            {editError && (
+                                <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-xs text-red-700">
+                                    {editError}
+                                </div>
+                            )}
+
+                            <form onSubmit={handleEditSubmit} className="space-y-4">
+                                <div>
+                                    <label
+                                        htmlFor="edit-comment-name-input"
+                                        className="field-label"
+                                    >
+                                        Customer Name
+                                    </label>
+                                    <input
+                                        id="edit-comment-name-input"
+                                        type="text"
+                                        value={editName}
+                                        onChange={(e) => setEditName(e.target.value)}
+                                        className="field"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label
+                                        htmlFor="edit-comment-email-input"
+                                        className="field-label"
+                                    >
+                                        Email Address <span className="text-maroon">*</span>
+                                    </label>
+                                    <input
+                                        id="edit-comment-email-input"
+                                        type="email"
+                                        required
+                                        value={editEmail}
+                                        onChange={(e) => setEditEmail(e.target.value)}
+                                        className="field"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="field-label">
+                                        Rating
+                                    </label>
+                                    <div className="flex items-center gap-2 pt-1">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <button
+                                                key={star}
+                                                type="button"
+                                                onClick={() => setEditRating(star)}
+                                                className="text-2xl text-amber-500 transition hover:scale-110 focus:outline-none"
+                                                title={`${star} Star${star > 1 ? "s" : ""}`}
+                                            >
+                                                {star <= editRating ? "★" : "☆"}
+                                            </button>
+                                        ))}
+                                        <span className="ml-2 text-xs text-muted">
+                                            ({editRating} / 5)
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label
+                                        htmlFor="edit-comment-message-input"
+                                        className="field-label"
+                                    >
+                                        Message <span className="text-maroon">*</span>
+                                    </label>
+                                    <textarea
+                                        id="edit-comment-message-input"
+                                        required
+                                        rows="4"
+                                        value={editMessage}
+                                        onChange={(e) => setEditMessage(e.target.value)}
+                                        className="field resize-none"
+                                    ></textarea>
+                                </div>
+
+                                <div className="flex items-center justify-end gap-3 pt-2">
+                                    <button
+                                        type="button"
+                                        onClick={handleCloseEditModal}
+                                        className="btn-ghost text-xs"
+                                        disabled={isSavingEdit}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="btn-primary text-xs"
+                                        disabled={isSavingEdit}
+                                    >
+                                        {isSavingEdit ? "Saving..." : "Save Changes"}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
             </section>
         </>
     );
